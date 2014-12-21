@@ -5,14 +5,23 @@ namespace SSLLWrapper.Helpers
 {
 	class RequestModelHelper : IRequestModelHelper
 	{
-		public RequestModel InfoRequestModel(string apiBaseUrl, string action)
+		public RequestModel InfoProperties(string apiBaseUrl, string action)
 		{
-			throw new System.NotImplementedException();
+			return new RequestModel() {ApiBaseUrl = apiBaseUrl, Action = action};
 		}
 
-		public RequestModel AnalyzeRequestModel(string apiBaseUrl, string action, string host, string publish, string clearCache, string fromCache, string all)
+		public RequestModel AnalyzeProperties(string apiBaseUrl, string action, string host, string publish, string clearCache,
+			string fromCache, string all)
 		{
-			throw new System.NotImplementedException();
+			var requestModel = new RequestModel() { ApiBaseUrl = apiBaseUrl, Action = action};
+
+			requestModel.Paramaters.Add("host", host);
+			requestModel.Paramaters.Add("publish", publish);
+			requestModel.Paramaters.Add("clearCache", clearCache);
+			requestModel.Paramaters.Add("fromCache", fromCache);
+			requestModel.Paramaters.Add("all", all);
+
+			return requestModel;
 		}
 	}
 }

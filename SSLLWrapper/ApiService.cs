@@ -11,18 +11,21 @@ namespace SSLLWrapper
     {
 	    readonly IApi _api;
 	    private readonly HttpWebResponseHelper _webResponseHelper;
+	    private readonly RequestModelHelper _requestModelHelper;
 
-		public ApiService()
+	    public ApiService()
 		{
 			_api = new Api();
 			_webResponseHelper = new HttpWebResponseHelper();
+			_requestModelHelper = new RequestModelHelper();
 			//_apiBaseUrl = WebConfigurationManager.AppSettings["SSLLabsApi"];
 		}
 
 	    public InfoModel Info()
 		{
 			InfoModel infoResponse;
-			var requestModel = new RequestModel {ApiBaseUrl = _apiBaseUrl, Action = "info"};
+
+		    var requestModel = _requestModelHelper.InfoProperties(_apiBaseUrl, "info");
 
 			try
 			{
@@ -46,28 +49,26 @@ namespace SSLLWrapper
 			return infoResponse;
 		}
 
-		public AnalyzeModel Analyze(string host, bool publish, bool clearCache, bool fromCache, string all)
+		public AnalyzeModel Analyze(string host, string publish, string clearCache, string fromCache, string all)
 		{
-			var analyzeModel = new AnalyzeModel();
-			var requestModel = new RequestModel() {ApiBaseUrl = _apiBaseUrl, Action = "analyze"};
+			// ** TO DO - Validate comsumers input. Helper.
 
-			// ** TO DO - Move this to helper
-			requestModel.Paramaters.Add("host",host);
-			requestModel.Paramaters.Add("publish", "off"); // ** TO DO - Allow comsumer to set this
-			requestModel.Paramaters.Add("clearCache", "on"); // ** TO DO - Allow comsumer to set this
-			requestModel.Paramaters.Add("fromCache", "off"); // ** TO DO - Allow comsumer to set this
-			requestModel.Paramaters.Add("all", "on"); // ** TO DO - Allow comsumer to set this
+			AnalyzeModel analyzeModel;
+
+			var requestModel = _requestModelHelper.AnalyzeProperties(_apiBaseUrl, "analyze", host, publish, clearCache, fromCache, all);
 
 			try
 			{
-				var apiResult = _api.MakeGetRequest(requestModel);
+				var webResponse = _api.MakeGetRequest(requestModel);
+				var webResult = _webResponseHelper.GetResponsePayload(webResponse);
 
-				analyzeModel = (AnalyzeModel)JsonConvert.DeserializeObject(apiResult);
+				// ** TO DO - Check for error before converting to model. Expand model to include error properties?
+				analyzeModel = (AnalyzeModel)JsonConvert.DeserializeObject(webResult);
 			}
 			catch (Exception)
 			{
 				// failure getting API status
-				// ** TO DO - Add logging of exception
+				// ** TO DO - Add logging of exception and set status flag maybe?
 				throw;
 			}
 
