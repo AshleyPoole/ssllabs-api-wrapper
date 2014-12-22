@@ -6,5 +6,10 @@ namespace SSLLWrapper.Models.Response.EndpointSubModels
 	{
 		public List<List> list { get; set; }
 		public bool preference { get; set; }
+
+		public Suites()
+		{
+			list = new List<List>();
+		}
 	}
 }

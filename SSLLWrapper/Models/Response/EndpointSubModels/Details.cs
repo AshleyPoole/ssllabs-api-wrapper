@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SSLLWrapper.Models.Response.EndpointSubModels
 {
@@ -40,6 +36,7 @@ namespace SSLLWrapper.Models.Response.EndpointSubModels
 			key = new Key();
 			cert = new Cert();
 			chain = new Chain();
+			protocols = new List<Protocol>();
 			suites = new Suites();
 			sims = new Sims();
 		}

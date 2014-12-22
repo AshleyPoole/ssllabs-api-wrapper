@@ -20,5 +20,10 @@ namespace SSLLWrapper.Models.Response
 
 		public Details Details { get; set; }
 
+		public Endpoint()
+		{
+			Details = new Details();
+		}
+
 	}
 }

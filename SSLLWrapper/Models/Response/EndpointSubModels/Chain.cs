@@ -6,5 +6,10 @@ namespace SSLLWrapper.Models.Response.EndpointSubModels
 	{
 		public List<Cert2> certs { get; set; }
 		public int issues { get; set; }
+
+		public Chain()
+		{
+			certs = new List<Cert2>();
+		}
 	}
 }
