@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SSLLWrapper.Models.Response.BaseResponseSubModels
 {
-	public class Wrapper
+	public class Errors
 	{
-		public bool ErrorOccurred { get; set; }
+		public bool HasErrorOccurred { get; set; }
 		public string ErrorText { get; set; }
 	}
 }
