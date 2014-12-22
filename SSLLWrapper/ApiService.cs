@@ -42,7 +42,7 @@ namespace SSLLWrapper
 			catch (Exception)
 			{
 				// failure getting API status
-				// ** TO DO - Add logging of exception
+				// ** TO DO - Add logging of exception and set status flag maybe?
 				throw;
 			}
 
@@ -63,6 +63,7 @@ namespace SSLLWrapper
 
 				// ** TO DO - Check for error before converting to model. Expand model to include error properties?
 				analyzeModel = (AnalyzeModel)JsonConvert.DeserializeObject(webResult);
+				
 			}
 			catch (Exception)
 			{

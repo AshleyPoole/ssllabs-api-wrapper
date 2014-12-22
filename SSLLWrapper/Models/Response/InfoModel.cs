@@ -1,6 +1,6 @@
 ﻿namespace SSLLWrapper.Models.Response
 {
-	public class InfoModel : BaseResponseModel
+	public class InfoModel : BaseModel
 	{
 		public string engineVersion { get; set; }
 		public string criteriaVersion { get; set; }

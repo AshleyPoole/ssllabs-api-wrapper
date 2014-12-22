@@ -49,8 +49,13 @@
     <Compile Include="Interfaces\IHttpWebResponseHelper.cs" />
     <Compile Include="Interfaces\IRequestModelHelper.cs" />
     <Compile Include="Helpers\RequestModelHelper.cs" />
-    <Compile Include="Models\AnalyzeModel.cs" />
-    <Compile Include="Models\InfoModel.cs" />
+    <Compile Include="Models\Response\AnalyzeModel.cs" />
+    <Compile Include="Models\Response\AnalyzeSubModels\Endpoint.cs" />
+    <Compile Include="Models\Response\AnalyzeSubModels\RootObject.cs" />
+    <Compile Include="Models\Response\BaseModel.cs" />
+    <Compile Include="Models\Response\BaseResponseSubModels\Headers.cs" />
+    <Compile Include="Models\Response\BaseResponseSubModels\Wrapper.cs" />
+    <Compile Include="Models\Response\InfoModel.cs" />
     <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
