@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SSLLWrapper.Models.Response.EndpointSubModels;
 
-namespace SSLLWrapper.Models.Response.AnalyzeSubModels
+namespace SSLLWrapper.Models.Response
 {
 	public class Endpoint
 	{
@@ -21,5 +17,8 @@ namespace SSLLWrapper.Models.Response.AnalyzeSubModels
 		public string grade { get; set; }
 		public bool hasWarnings { get; set; }
 		public bool isExceptional { get; set; }
+
+		public Details Details { get; set; }
+
 	}
 }

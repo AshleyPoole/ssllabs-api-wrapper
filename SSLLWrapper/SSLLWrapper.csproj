@@ -49,15 +49,27 @@
     <Compile Include="Helpers\HttpWebResponseHelper.cs" />
     <Compile Include="Interfaces\IApi.cs" />
     <Compile Include="Interfaces\IHttpWebResponseHelper.cs" />
+    <Compile Include="Interfaces\IUrlHelper.cs" />
     <Compile Include="Interfaces\IRequestModelHelper.cs" />
     <Compile Include="Helpers\RequestModelHelper.cs" />
     <Compile Include="Interfaces\IResponsePopulationHelper.cs" />
+    <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Models\Response\AnalyzeModel.cs" />
-    <Compile Include="Models\Response\AnalyzeSubModels\Endpoint.cs" />
+    <Compile Include="Models\Response\Endpoint.cs" />
     <Compile Include="Models\Response\BaseModel.cs" />
     <Compile Include="Models\Response\BaseResponseSubModels\Header.cs" />
-    <Compile Include="Models\Response\BaseResponseSubModels\Fault.cs" />
-    <Compile Include="Models\Response\ErrorsSubModels\Error.cs" />
+    <Compile Include="Models\Response\BaseResponseSubModels\Error.cs" />
+    <Compile Include="Models\Response\EndpointSubModels\Cert.cs" />
+    <Compile Include="Models\Response\EndpointSubModels\Cert2.cs" />
+    <Compile Include="Models\Response\EndpointSubModels\Chain.cs" />
+    <Compile Include="Models\Response\EndpointSubModels\Key.cs" />
+    <Compile Include="Models\Response\EndpointSubModels\List.cs" />
+    <Compile Include="Models\Response\EndpointSubModels\Protocol.cs" />
+    <Compile Include="Models\Response\EndpointSubModels\Suites.cs" />
+    <Compile Include="Models\Response\EndpointSubModels\Client.cs" />
+    <Compile Include="Models\Response\EndpointSubModels\Result.cs" />
+    <Compile Include="Models\Response\EndpointSubModels\Sims.cs" />
+    <Compile Include="Models\Response\EndpointSubModels\Details.cs" />
     <Compile Include="Models\Response\InfoModel.cs" />
     <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\Response\StatusDetails.cs" />
@@ -65,6 +77,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Response\AnalyzeSubModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

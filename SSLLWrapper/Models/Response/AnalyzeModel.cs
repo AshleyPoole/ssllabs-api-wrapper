@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SSLLWrapper.Models.Response.AnalyzeSubModels;
 
 namespace SSLLWrapper.Models.Response
 {
