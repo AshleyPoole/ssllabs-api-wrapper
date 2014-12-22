@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace SSLLWrapper.Models
+namespace SSLLWrapper.Models.Response
 {
-	public class AnalyzeModel
+	public class AnalyzeModel : BaseResponseModel
 	{
 		public class Endpoint
 		{
@@ -32,12 +32,6 @@ namespace SSLLWrapper.Models
 			public string engineVersion { get; set; }
 			public string criteriaVersion { get; set; }
 			public List<Endpoint> endpoints { get; set; }
-		}
-
-		public class Headers
-		{
-			public string statusCode { get; set; }
-			public string statusDescription { get; set; }
 		}
 	}
 }

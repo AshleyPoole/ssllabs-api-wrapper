@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Management.Instrumentation;
 using Newtonsoft.Json;
 using SSLLWrapper.Helpers;
 using SSLLWrapper.Interfaces;
-using SSLLWrapper.Models;
+using SSLLWrapper.Models.Response;
 
 namespace SSLLWrapper
 {
@@ -32,6 +31,7 @@ namespace SSLLWrapper
 				var webResponse = _api.MakeGetRequest(requestModel);
 				var webResult = _webResponseHelper.GetResponsePayload(webResponse);
 
+				// ** TO DO - Check for error before converting to model. Expand model to include error properties?
 				infoResponse = (InfoModel) JsonConvert.DeserializeObject(webResult);
 
 				if (infoResponse.engineVersion != null)
@@ -52,7 +52,6 @@ namespace SSLLWrapper
 		public AnalyzeModel Analyze(string host, string publish, string clearCache, string fromCache, string all)
 		{
 			// ** TO DO - Validate comsumers input. Helper.
-
 			AnalyzeModel analyzeModel;
 
 			var requestModel = _requestModelHelper.AnalyzeProperties(_apiBaseUrl, "analyze", host, publish, clearCache, fromCache, all);
