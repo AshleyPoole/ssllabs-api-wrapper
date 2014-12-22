@@ -78,5 +78,20 @@ namespace SSLLWrapper
 
 			return analyzeModel;
 		}
+
+		public string GetEndpointData(string host, string s)
+		{
+			return GetEndpointData(host, s, "no");
+		}
+
+	    public string GetEndpointData(string host, string s, string fromCache)
+	    {
+		    throw new NotImplementedException();
+	    }
+
+	    public string GetStatusCodes()
+	    {
+		    throw new NotImplementedException();
+	    }
     }
 }
