@@ -5,13 +5,14 @@ namespace SSLLWrapper.Models.Response
 {
 	public class AnalyzeModel : BaseModel
 	{
-		public Endpoint Endpoint { get; set; }
-		public RootObject RootObject { get; set; }
-
-		public AnalyzeModel()
-		{
-			Endpoint = new Endpoint();
-			RootObject = new RootObject();
-		}
+		public string host { get; set; }
+		public int port { get; set; }
+		public string protocol { get; set; }
+		public bool isPublic { get; set; }
+		public string status { get; set; }
+		public long startTime { get; set; }
+		public string engineVersion { get; set; }
+		public string criteriaVersion { get; set; }
+		public List<Endpoint> endpoints { get; set; }
 	}
 }
