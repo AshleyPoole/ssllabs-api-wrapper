@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using SSLLWrapper.Helpers;
 using SSLLWrapper.Interfaces;
 using SSLLWrapper.Models.Response;
-using SSLLWrapper.Models.Response.ErrorsSubModels;
+using SSLLWrapper.Models.Response.BaseResponseSubModels;
 
 namespace SSLLWrapper
 {
@@ -14,8 +14,10 @@ namespace SSLLWrapper
 	    private readonly IApi _api;
 	    private readonly HttpWebResponseHelper _webResponseHelper;
 	    private readonly RequestModelHelper _requestModelHelper;
+		private readonly UrlHelper _urlHelper;
 	    public string ApiUrl { get; set; }
 	    public JsonSerializerSettings JsonSerializerSettings;
+
 
 	    public enum Publish
 	    {
@@ -46,6 +48,7 @@ namespace SSLLWrapper
 			_api = new Api();
 			_webResponseHelper = new HttpWebResponseHelper();
 			_requestModelHelper = new RequestModelHelper();
+		    _urlHelper = new UrlHelper();
 
 		    ApiUrl = apiUrl;
 
@@ -75,8 +78,8 @@ namespace SSLLWrapper
 			}
 			catch (Exception ex)
 			{
-				infoModel.Fault.HasOccurred = true;
-				infoModel.Fault.Errors.Add(new Error { message = ex.ToString() });
+				infoModel.HasErrorOccurred = true;
+				infoModel.Errors.Add(new Error { message = ex.ToString() });
 			}
 
 			return infoModel;
@@ -90,8 +93,17 @@ namespace SSLLWrapper
 
 		public AnalyzeModel Analyze(string host, Publish publish, ClearCache clearCache, FromCache fromCache, All all)
 		{
-			// ** TO DO - Validate comsumers input. Helper.
 			var analyzeModel = new AnalyzeModel();
+
+			// Checking host is valid before continuing
+			if (!_urlHelper.IsValid(host))
+			{
+				analyzeModel.HasErrorOccurred = true;
+				analyzeModel.Errors.Add(new Error {message = "Host does not pass preflight validation. No Api call has been made."});
+				return analyzeModel;
+			}
+
+			// Building request model before issuing Api request
 			var requestModel = _requestModelHelper.AnalyzeProperties(ApiUrl, "analyze", host, publish.ToString().ToLower(), clearCache.ToString().ToLower(), 
 				fromCache.ToString().ToLower(), all.ToString().ToLower());
 
@@ -106,8 +118,8 @@ namespace SSLLWrapper
 			}
 			catch (Exception ex)
 			{
-				analyzeModel.Fault.HasOccurred = true;
-				analyzeModel.Fault.Errors.Add(new Error {message = ex.ToString()});
+				analyzeModel.HasErrorOccurred = true;
+				analyzeModel.Errors.Add(new Error {message = ex.ToString()});
 			}
 
 			return analyzeModel;

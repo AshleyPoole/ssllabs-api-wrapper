@@ -1,4 +1,5 @@
-﻿using SSLLWrapper.Interfaces;
+﻿using System;
+using SSLLWrapper.Interfaces;
 using SSLLWrapper.Models;
 
 namespace SSLLWrapper.Helpers
