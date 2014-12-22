@@ -9,12 +9,37 @@ namespace SSLLWrapper
 {
     public class ApiService
     {
-	    readonly IApi _api;
+	    #region construction
+
+	    private readonly IApi _api;
 	    private readonly HttpWebResponseHelper _webResponseHelper;
 	    private readonly RequestModelHelper _requestModelHelper;
-		public string ApiUrl { get; set; }
+	    public string ApiUrl { get; set; }
 	    public JsonSerializerSettings JsonSerializerSettings;
 
+	    public enum Publish
+	    {
+		    On,
+		    Off
+	    }
+
+	    public enum ClearCache
+	    {
+		    On,
+		    Off
+	    }
+
+	    public enum FromCache
+	    {
+		    On,
+		    Off
+	    }
+
+	    public enum All
+	    {
+		    On,
+		    Done
+	    }
 
 	    public ApiService(string apiUrl)
 		{
@@ -28,7 +53,9 @@ namespace SSLLWrapper
 			JsonSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 		}
 
-	    public InfoModel Info()
+		#endregion
+
+		public InfoModel Info()
 		{
 			var infoModel = new InfoModel();
 		    var requestModel = _requestModelHelper.InfoProperties(ApiUrl, "info");
@@ -58,14 +85,15 @@ namespace SSLLWrapper
 	    public AnalyzeModel Analyze(string host)
 	    {
 			// overloaded method to provide a default set of options
-		    return Analyze(host, "off", "on", "off", "on");
+		    return Analyze(host, Publish.Off, ClearCache.On, FromCache.Off, All.On);
 	    }
 
-		public AnalyzeModel Analyze(string host, string publish, string clearCache, string fromCache, string all)
+		public AnalyzeModel Analyze(string host, Publish publish, ClearCache clearCache, FromCache fromCache, All all)
 		{
 			// ** TO DO - Validate comsumers input. Helper.
 			var analyzeModel = new AnalyzeModel();
-			var requestModel = _requestModelHelper.AnalyzeProperties(ApiUrl, "analyze", host, publish, clearCache, fromCache, all);
+			var requestModel = _requestModelHelper.AnalyzeProperties(ApiUrl, "analyze", host, publish.ToString().ToLower(), clearCache.ToString().ToLower(), 
+				fromCache.ToString().ToLower(), all.ToString().ToLower());
 
 			try
 			{
