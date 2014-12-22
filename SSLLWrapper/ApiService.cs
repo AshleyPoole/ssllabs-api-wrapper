@@ -11,20 +11,20 @@ namespace SSLLWrapper
 	    readonly IApi _api;
 	    private readonly HttpWebResponseHelper _webResponseHelper;
 	    private readonly RequestModelHelper _requestModelHelper;
+		public string ApiUrl { get; set; }
 
 	    public ApiService()
 		{
 			_api = new Api();
 			_webResponseHelper = new HttpWebResponseHelper();
 			_requestModelHelper = new RequestModelHelper();
-			//_apiBaseUrl = WebConfigurationManager.AppSettings["SSLLabsApi"];
+			ApiUrl = "https://api.dev.ssllabs.com/api/fa78d5a4/";
 		}
 
 	    public InfoModel Info()
 		{
-			InfoModel infoResponse;
-
-		    var requestModel = _requestModelHelper.InfoProperties(_apiBaseUrl, "info");
+			var infoModel = new InfoModel();
+		    var requestModel = _requestModelHelper.InfoProperties(ApiUrl, "info");
 
 			try
 			{
@@ -32,29 +32,27 @@ namespace SSLLWrapper
 				var webResult = _webResponseHelper.GetResponsePayload(webResponse);
 
 				// ** TO DO - Check for error before converting to model. Expand model to include error properties?
-				infoResponse = (InfoModel) JsonConvert.DeserializeObject(webResult);
+				infoModel = (InfoModel) JsonConvert.DeserializeObject(webResult);
 
-				if (infoResponse.engineVersion != null)
+				if (infoModel.engineVersion != null)
 				{
-					infoResponse.Online = true;
+					infoModel.Online = true;
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				// failure getting API status
-				// ** TO DO - Add logging of exception and set status flag maybe?
-				throw;
+				infoModel.Wrapper.ErrorOccurred = true;
+				infoModel.Wrapper.ErrorText = ex.ToString();
 			}
 
-			return infoResponse;
+			return infoModel;
 		}
 
 		public AnalyzeModel Analyze(string host, string publish, string clearCache, string fromCache, string all)
 		{
 			// ** TO DO - Validate comsumers input. Helper.
-			AnalyzeModel analyzeModel;
-
-			var requestModel = _requestModelHelper.AnalyzeProperties(_apiBaseUrl, "analyze", host, publish, clearCache, fromCache, all);
+			var analyzeModel = new AnalyzeModel();
+			var requestModel = _requestModelHelper.AnalyzeProperties(ApiUrl, "analyze", host, publish, clearCache, fromCache, all);
 
 			try
 			{
@@ -65,11 +63,10 @@ namespace SSLLWrapper
 				analyzeModel = (AnalyzeModel)JsonConvert.DeserializeObject(webResult);
 				
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				// failure getting API status
-				// ** TO DO - Add logging of exception and set status flag maybe?
-				throw;
+				analyzeModel.Wrapper.ErrorOccurred = true;
+				analyzeModel.Wrapper.ErrorText = ex.ToString();
 			}
 
 			return analyzeModel;
