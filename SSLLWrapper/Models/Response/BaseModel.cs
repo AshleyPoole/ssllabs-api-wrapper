@@ -4,13 +4,13 @@ namespace SSLLWrapper.Models.Response
 {
 	public class BaseModel
 	{
-		public Headers Headers { get; set; }
-		public Errors Wrapper { get; set; }
+		public Header Headers { get; set; }
+		public Fault Fault { get; set; }
 
 		public BaseModel()
 		{
-			Headers = new Headers();
-			Wrapper = new Errors();
+			Headers = new Header();
+			Fault = new Fault();
 		}
 	}
 }

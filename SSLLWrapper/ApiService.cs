@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using SSLLWrapper.Helpers;
 using SSLLWrapper.Interfaces;
 using SSLLWrapper.Models.Response;
+using SSLLWrapper.Models.Response.ErrorsSubModels;
 
 namespace SSLLWrapper
 {
@@ -41,12 +42,18 @@ namespace SSLLWrapper
 			}
 			catch (Exception ex)
 			{
-				infoModel.Wrapper.ErrorOccurred = true;
-				infoModel.Wrapper.ErrorText = ex.ToString();
+				infoModel.Fault.HasOccurred = true;
+				infoModel.Fault.Errors.Add(new Error { message = ex.ToString() });
 			}
 
 			return infoModel;
 		}
+
+	    public AnalyzeModel Analyze(string host)
+	    {
+			// overloaded method to provide a default set of options
+		    return Analyze(host, "off", "on", "off", "on");
+	    }
 
 		public AnalyzeModel Analyze(string host, string publish, string clearCache, string fromCache, string all)
 		{
@@ -65,8 +72,8 @@ namespace SSLLWrapper
 			}
 			catch (Exception ex)
 			{
-				analyzeModel.Wrapper.ErrorOccurred = true;
-				analyzeModel.Wrapper.ErrorText = ex.ToString();
+				analyzeModel.Fault.HasOccurred = true;
+				analyzeModel.Fault.Errors.Add(new Error {message = ex.ToString()});
 			}
 
 			return analyzeModel;
