@@ -55,10 +55,10 @@
     <Compile Include="Models\Response\BaseModel.cs" />
     <Compile Include="Models\Response\BaseResponseSubModels\Header.cs" />
     <Compile Include="Models\Response\BaseResponseSubModels\Fault.cs" />
-    <Compile Include="Models\Response\Errors.cs" />
     <Compile Include="Models\Response\ErrorsSubModels\Error.cs" />
     <Compile Include="Models\Response\InfoModel.cs" />
     <Compile Include="Models\RequestModel.cs" />
+    <Compile Include="Models\Response\StatusDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

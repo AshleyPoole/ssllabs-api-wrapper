@@ -13,13 +13,19 @@ namespace SSLLWrapper
 	    private readonly HttpWebResponseHelper _webResponseHelper;
 	    private readonly RequestModelHelper _requestModelHelper;
 		public string ApiUrl { get; set; }
+	    public JsonSerializerSettings JsonSerializerSettings;
 
-	    public ApiService()
+
+	    public ApiService(string apiUrl)
 		{
 			_api = new Api();
 			_webResponseHelper = new HttpWebResponseHelper();
 			_requestModelHelper = new RequestModelHelper();
-			ApiUrl = "https://api.dev.ssllabs.com/api/fa78d5a4/";
+
+		    ApiUrl = apiUrl;
+
+			// Ignoring null values when serializing json objects
+			JsonSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 		}
 
 	    public InfoModel Info()
@@ -33,7 +39,7 @@ namespace SSLLWrapper
 				var webResult = _webResponseHelper.GetResponsePayload(webResponse);
 
 				// ** TO DO - Check for error before converting to model. Expand model to include error properties?
-				infoModel = (InfoModel) JsonConvert.DeserializeObject(webResult);
+				infoModel = (InfoModel)JsonConvert.DeserializeObject(webResult, JsonSerializerSettings);
 
 				if (infoModel.engineVersion != null)
 				{
@@ -67,7 +73,7 @@ namespace SSLLWrapper
 				var webResult = _webResponseHelper.GetResponsePayload(webResponse);
 
 				// ** TO DO - Check for error before converting to model. Expand model to include error properties?
-				analyzeModel = (AnalyzeModel)JsonConvert.DeserializeObject(webResult);
+				analyzeModel = (AnalyzeModel)JsonConvert.DeserializeObject(webResult, JsonSerializerSettings);
 				
 			}
 			catch (Exception ex)
