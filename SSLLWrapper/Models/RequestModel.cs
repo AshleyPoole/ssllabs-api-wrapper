@@ -10,7 +10,12 @@ namespace SSLLWrapper.Models
 	{
 		public string ApiBaseUrl;
 		public string Action;
-		public Dictionary<string, string> Paramaters;
+		public Dictionary<string, string> Parameters;
 		public string RequestType;
+
+		public RequestModel()
+		{
+			Parameters = new Dictionary<string, string>();
+		}
 	}
 }

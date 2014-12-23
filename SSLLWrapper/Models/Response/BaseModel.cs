@@ -12,6 +12,7 @@ namespace SSLLWrapper.Models.Response
 		public BaseModel()
 		{
 			Headers = new Header();
+			Errors = new List<Error>();
 			this.HasErrorOccurred = false;
 		}
 	}

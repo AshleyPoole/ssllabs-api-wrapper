@@ -16,11 +16,11 @@ namespace SSLLWrapper.Helpers
 		{
 			var requestModel = new RequestModel() { ApiBaseUrl = apiBaseUrl, Action = action};
 
-			requestModel.Paramaters.Add("host", host);
-			requestModel.Paramaters.Add("publish", publish);
-			requestModel.Paramaters.Add("clearCache", clearCache);
-			requestModel.Paramaters.Add("fromCache", fromCache);
-			requestModel.Paramaters.Add("all", all);
+			requestModel.Parameters.Add("host", host);
+			requestModel.Parameters.Add("publish", publish);
+			requestModel.Parameters.Add("clearCache", clearCache);
+			//requestModel.Parameters.Add("fromCache", fromCache); // Temp commenting out
+			requestModel.Parameters.Add("all", all);
 
 			return requestModel;
 		}

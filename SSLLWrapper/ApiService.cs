@@ -49,6 +49,7 @@ namespace SSLLWrapper
 			_webResponseHelper = new HttpWebResponseHelper();
 			_requestModelHelper = new RequestModelHelper();
 		    _urlHelper = new UrlHelper();
+			JsonSerializerSettings = new JsonSerializerSettings();
 
 		    ApiUrl = apiUrl;
 
