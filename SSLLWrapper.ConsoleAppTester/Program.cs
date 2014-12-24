@@ -18,7 +18,6 @@ namespace SSLLWrapper.ConsoleAppTester
 			var analyze = apiService.Analyze("http://www.ashleypoole.co.uk");
 
 			Console.WriteLine("Has Error Occoured: {0}", analyze.HasErrorOccurred);
-			Console.WriteLine("First Error Message: {0}", analyze.Errors.First().message);
 			Console.WriteLine("Status Code: {0}", analyze.Headers.statusCode);
 			Console.WriteLine("Status: {0}", analyze.status);
 

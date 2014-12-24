@@ -70,7 +70,7 @@ namespace SSLLWrapper
 				var webResult = _webResponseHelper.GetResponsePayload(webResponse);
 
 				// ** TO DO - Check for error before converting to model. Expand model to include error properties?
-				infoModel = (InfoModel)JsonConvert.DeserializeObject(webResult, JsonSerializerSettings);
+				infoModel = JsonConvert.DeserializeObject<InfoModel>(webResult, JsonSerializerSettings);
 
 				if (infoModel.engineVersion != null)
 				{
@@ -104,18 +104,20 @@ namespace SSLLWrapper
 				return analyzeModel;
 			}
 
-			// Building request model before issuing Api request
+			// Building request model
 			var requestModel = _requestModelHelper.AnalyzeProperties(ApiUrl, "analyze", host, publish.ToString().ToLower(), clearCache.ToString().ToLower(), 
 				fromCache.ToString().ToLower(), all.ToString().ToLower());
 
 			try
 			{
+				// Making Api request and gathering response
 				var webResponse = _api.MakeGetRequest(requestModel);
 				var webResult = _webResponseHelper.GetResponsePayload(webResponse);
 
-				// ** TO DO - Check for error before converting to model. Expand model to include error properties?
-				analyzeModel = (AnalyzeModel)JsonConvert.DeserializeObject(webResult, JsonSerializerSettings);
-				
+				// Trying to bind result to model
+				analyzeModel = JsonConvert.DeserializeObject<AnalyzeModel>(webResult, JsonSerializerSettings);
+				analyzeModel.Headers.statusCode = _webResponseHelper.GetStatusCode(webResponse);
+				analyzeModel.Headers.statusDescription = _webResponseHelper.GetStatusDescription(webResponse);
 			}
 			catch (Exception ex)
 			{
