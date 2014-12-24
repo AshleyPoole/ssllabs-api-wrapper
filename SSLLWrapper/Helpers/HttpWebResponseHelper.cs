@@ -16,9 +16,9 @@ namespace SSLLWrapper.Helpers
 			return result;
 		}
 
-		public string GetStatusCode(HttpWebResponse webResponse)
+		public int GetStatusCode(HttpWebResponse webResponse)
 		{
-			return webResponse.StatusCode.ToString();
+			return (int)webResponse.StatusCode;
 		}
 
 		public string GetStatusDescription(HttpWebResponse webResponse)

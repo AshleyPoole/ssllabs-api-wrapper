@@ -2,7 +2,7 @@
 {
 	public class Header
 	{
-		public string statusCode { get; set; }
+		public int statusCode { get; set; }
 		public string statusDescription { get; set; }
 	}
 }
