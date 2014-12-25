@@ -12,12 +12,11 @@ namespace SSLLWrapper
 	    #region construction
 
 	    private readonly IApi _api;
-	    private readonly HttpWebResponseHelper _webResponseHelper;
-	    private readonly RequestModelHelper _requestModelHelper;
-		private readonly UrlHelper _urlHelper;
+	    private readonly IHttpWebResponseHelper _webResponseHelper;
+	    private readonly IRequestModelHelper _requestModelHelper;
+		private readonly IUrlHelper _urlHelper;
 	    public string ApiUrl { get; set; }
 	    public JsonSerializerSettings JsonSerializerSettings;
-
 
 	    public enum Publish
 	    {
@@ -50,6 +49,7 @@ namespace SSLLWrapper
 			_requestModelHelper = new RequestModelHelper();
 		    _urlHelper = new UrlHelper();
 			JsonSerializerSettings = new JsonSerializerSettings();
+			_responsePopulationHelper = new ResponsePopulationHelper();
 
 		    ApiUrl = apiUrl;
 
