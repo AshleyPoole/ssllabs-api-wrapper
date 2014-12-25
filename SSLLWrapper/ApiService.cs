@@ -62,15 +62,20 @@ namespace SSLLWrapper
 		public InfoModel Info()
 		{
 			var infoModel = new InfoModel();
+
+			// Building request model
 		    var requestModel = _requestModelHelper.InfoProperties(ApiUrl, "info");
 
 			try
 			{
+				// Making Api request and gathering response
 				var webResponse = _api.MakeGetRequest(requestModel);
 				var webResult = _webResponseHelper.GetResponsePayload(webResponse);
 
-				// ** TO DO - Check for error before converting to model. Expand model to include error properties?
+				// Trying to bind result to model
 				infoModel = JsonConvert.DeserializeObject<InfoModel>(webResult, JsonSerializerSettings);
+				infoModel.Headers.statusCode = _webResponseHelper.GetStatusCode(webResponse);
+				infoModel.Headers.statusDescription = _webResponseHelper.GetStatusDescription(webResponse);
 
 				if (infoModel.engineVersion != null)
 				{
@@ -82,6 +87,9 @@ namespace SSLLWrapper
 				infoModel.HasErrorOccurred = true;
 				infoModel.Errors.Add(new Error { message = ex.ToString() });
 			}
+
+			// Checking if errors have occoured either from ethier api or wrapper
+			if (infoModel.Errors.Count != 0 && !infoModel.HasErrorOccurred) { infoModel.HasErrorOccurred = true;}
 
 			return infoModel;
 		}
@@ -124,6 +132,9 @@ namespace SSLLWrapper
 				analyzeModel.HasErrorOccurred = true;
 				analyzeModel.Errors.Add(new Error {message = ex.ToString()});
 			}
+
+			// Checking if errors have occoured either from ethier api or wrapper
+			if (analyzeModel.Errors.Count != 0 && !analyzeModel.HasErrorOccurred) { analyzeModel.HasErrorOccurred = true; }
 
 			return analyzeModel;
 		}
