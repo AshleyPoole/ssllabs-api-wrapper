@@ -139,14 +139,48 @@ namespace SSLLWrapper
 			return analyzeModel;
 		}
 
-		public string GetEndpointData(string host, string s)
+		public EndpointDataModel GetEndpointData(string host, string s)
 		{
-			return GetEndpointData(host, s, "no");
+			return GetEndpointData(host, s, FromCache.Off);
 		}
 
-	    public string GetEndpointData(string host, string s, string fromCache)
+		public EndpointDataModel GetEndpointData(string host, string s, FromCache fromCache)
 	    {
-		    throw new NotImplementedException();
+		    var endpointDataModel = new EndpointDataModel();
+
+			// Checking host is valid before continuing
+			if (!_urlHelper.IsValid(host))
+			{
+				endpointDataModel.HasErrorOccurred = true;
+				endpointDataModel.Errors.Add(new Error { message = "Host does not pass preflight validation. No Api call has been made." });
+				return endpointDataModel;
+			}
+
+			// Building request model
+			var requestModel = _requestModelHelper.GetEndpointDataProperties(ApiUrl, "getEndpointData", host, s,
+				fromCache.ToString());
+
+			try
+			{
+				// Making Api request and gathering response
+				var webResponse = _api.MakeGetRequest(requestModel);
+				var webResult = _webResponseHelper.GetResponsePayload(webResponse);
+
+				// Trying to bind result to model
+				endpointDataModel = JsonConvert.DeserializeObject<EndpointDataModel>(webResult, JsonSerializerSettings);
+				endpointDataModel.Headers.statusCode = _webResponseHelper.GetStatusCode(webResponse);
+				endpointDataModel.Headers.statusDescription = _webResponseHelper.GetStatusDescription(webResponse);
+			}
+			catch (Exception ex)
+			{
+				endpointDataModel.HasErrorOccurred = true;
+				endpointDataModel.Errors.Add(new Error { message = ex.ToString() });
+			}
+
+			// Checking if errors have occoured either from ethier api or wrapper
+			if (endpointDataModel.Errors.Count != 0 && !endpointDataModel.HasErrorOccurred) { endpointDataModel.HasErrorOccurred = true; }
+
+		    return endpointDataModel;
 	    }
 
 	    public string GetStatusCodes()

@@ -24,5 +24,16 @@ namespace SSLLWrapper.Helpers
 
 			return requestModel;
 		}
+
+		public RequestModel GetEndpointDataProperties(string apiBaseUrl, string action, string host, string s, string fromCache)
+		{
+			var requestModel = new RequestModel() {ApiBaseUrl = apiBaseUrl, Action = action};
+
+			requestModel.Parameters.Add("host", host);
+			requestModel.Parameters.Add("s", s);
+			requestModel.Parameters.Add("fromCache", fromCache);
+
+			return requestModel;
+		}
 	}
 }

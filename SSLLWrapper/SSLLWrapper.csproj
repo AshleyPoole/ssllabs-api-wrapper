@@ -59,6 +59,7 @@
     <Compile Include="Models\Response\BaseModel.cs" />
     <Compile Include="Models\Response\BaseResponseSubModels\Header.cs" />
     <Compile Include="Models\Response\BaseResponseSubModels\Error.cs" />
+    <Compile Include="Models\Response\EndpointDataModel.cs" />
     <Compile Include="Models\Response\EndpointSubModels\Cert.cs" />
     <Compile Include="Models\Response\EndpointSubModels\Cert2.cs" />
     <Compile Include="Models\Response\EndpointSubModels\Chain.cs" />
