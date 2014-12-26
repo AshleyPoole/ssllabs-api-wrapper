@@ -2,7 +2,7 @@
 
 namespace SSLLWrapper.Models.Response
 {
-	public class AnalyzeModel : BaseModel
+	public class Analyze : BaseModel
 	{
 		public string host { get; set; }
 		public int port { get; set; }

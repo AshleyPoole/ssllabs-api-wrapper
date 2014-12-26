@@ -1,4 +1,4 @@
-﻿namespace SSLLWrapper.Models.Response.BaseResponseSubModels
+﻿namespace SSLLWrapper.Models.Response.BaseSubModels
 {
 	public class Error
 	{

@@ -55,12 +55,11 @@
     <Compile Include="Interfaces\IResponsePopulationHelper.cs" />
     <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Helpers\ResponsePopulationHelper.cs" />
-    <Compile Include="Models\Response\AnalyzeModel.cs" />
+    <Compile Include="Models\Response\Analyze.cs" />
     <Compile Include="Models\Response\Endpoint.cs" />
     <Compile Include="Models\Response\BaseModel.cs" />
-    <Compile Include="Models\Response\BaseResponseSubModels\Header.cs" />
-    <Compile Include="Models\Response\BaseResponseSubModels\Error.cs" />
-    <Compile Include="Models\Response\EndpointDataModel.cs" />
+    <Compile Include="Models\Response\BaseSubModels\Header.cs" />
+    <Compile Include="Models\Response\BaseSubModels\Error.cs" />
     <Compile Include="Models\Response\EndpointSubModels\Cert.cs" />
     <Compile Include="Models\Response\EndpointSubModels\Cert2.cs" />
     <Compile Include="Models\Response\EndpointSubModels\Chain.cs" />
@@ -72,7 +71,7 @@
     <Compile Include="Models\Response\EndpointSubModels\Result.cs" />
     <Compile Include="Models\Response\EndpointSubModels\Sims.cs" />
     <Compile Include="Models\Response\EndpointSubModels\Details.cs" />
-    <Compile Include="Models\Response\InfoModel.cs" />
+    <Compile Include="Models\Response\Info.cs" />
     <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\Response\StatusDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

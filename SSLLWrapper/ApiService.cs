@@ -1,9 +1,8 @@
 ﻿using System;
-using Newtonsoft.Json;
 using SSLLWrapper.Helpers;
 using SSLLWrapper.Interfaces;
 using SSLLWrapper.Models.Response;
-using SSLLWrapper.Models.Response.BaseResponseSubModels;
+using SSLLWrapper.Models.Response.BaseSubModels;
 
 namespace SSLLWrapper
 {
@@ -55,9 +54,9 @@ namespace SSLLWrapper
 
 		#endregion
 
-		public InfoModel Info()
+		public Info Info()
 		{
-			var infoModel = new InfoModel();
+			var infoModel = new Info();
 
 			// Building new request model
 		    var requestModel = _requestModelHelper.InfoProperties(ApiUrl, "info");
@@ -87,15 +86,15 @@ namespace SSLLWrapper
 			return infoModel;
 		}
 
-	    public AnalyzeModel Analyze(string host)
+	    public Analyze Analyze(string host)
 	    {
 			// overloaded method to provide a default set of options
 		    return Analyze(host, Publish.Off, ClearCache.On, FromCache.Off, All.On);
 	    }
 
-		public AnalyzeModel Analyze(string host, Publish publish, ClearCache clearCache, FromCache fromCache, All all)
+		public Analyze Analyze(string host, Publish publish, ClearCache clearCache, FromCache fromCache, All all)
 		{
-			var analyzeModel = new AnalyzeModel();
+			var analyzeModel = new Analyze();
 
 			// Checking host is valid before continuing
 			if (!_urlHelper.IsValid(host))
@@ -129,21 +128,21 @@ namespace SSLLWrapper
 			return analyzeModel;
 		}
 
-		public EndpointDataModel GetEndpointData(string host, string s)
+		public Endpoint GetEndpointData(string host, string s)
 		{
 			return GetEndpointData(host, s, FromCache.Off);
 		}
 
-		public EndpointDataModel GetEndpointData(string host, string s, FromCache fromCache)
+		public Endpoint GetEndpointData(string host, string s, FromCache fromCache)
 	    {
-		    var endpointDataModel = new EndpointDataModel();
+		    var endpointModel = new Endpoint();
 
 			// Checking host is valid before continuing
 			if (!_urlHelper.IsValid(host))
 			{
-				endpointDataModel.HasErrorOccurred = true;
-				endpointDataModel.Errors.Add(new Error { message = "Host does not pass preflight validation. No Api call has been made." });
-				return endpointDataModel;
+				endpointModel.HasErrorOccurred = true;
+				endpointModel.Errors.Add(new Error { message = "Host does not pass preflight validation. No Api call has been made." });
+				return endpointModel;
 			}
 
 			// Building request model
@@ -156,23 +155,42 @@ namespace SSLLWrapper
 				var webResponse = _api.MakeGetRequest(requestModel);
 
 				// Binding result to model
-				_responsePopulationHelper.EndpointDataModel(webResponse, endpointDataModel);
+				_responsePopulationHelper.EndpointModel(webResponse, endpointModel);
 			}
 			catch (Exception ex)
 			{
-				endpointDataModel.HasErrorOccurred = true;
-				endpointDataModel.Errors.Add(new Error { message = ex.ToString() });
+				endpointModel.HasErrorOccurred = true;
+				endpointModel.Errors.Add(new Error { message = ex.ToString() });
 			}
 
 			// Checking if errors have occoured either from ethier api or wrapper
-			if (endpointDataModel.Errors.Count != 0 && !endpointDataModel.HasErrorOccurred) { endpointDataModel.HasErrorOccurred = true; }
+			if (endpointModel.Errors.Count != 0 && !endpointModel.HasErrorOccurred) { endpointModel.HasErrorOccurred = true; }
 
-		    return endpointDataModel;
+		    return endpointModel;
 	    }
 
-	    public string GetStatusCodes()
+	    public StatusDetails GetStatusCodes()
 	    {
-		    throw new NotImplementedException();
+		    var statusDetailsModel = new StatusDetails();
+
+			// Building request model
+		    var requestModel = _requestModelHelper.GetStatusCodeProperties(ApiUrl, "getStatusCodes");
+
+		    try
+		    {
+				// Making Api request and gathering response
+			    var webResponse = _api.MakeGetRequest(requestModel);
+
+				// Binding result to model
+			    _responsePopulationHelper.StatusDetailsModel(webResponse, statusDetailsModel);
+		    }
+		    catch (Exception ex)
+		    {
+				statusDetailsModel.HasErrorOccurred = true;
+				statusDetailsModel.Errors.Add(new Error { message = ex.ToString() });
+		    }
+
+		    return statusDetailsModel;
 	    }
     }
 }

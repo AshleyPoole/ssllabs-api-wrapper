@@ -1,6 +1,6 @@
 ﻿namespace SSLLWrapper.Models.Response
 {
-	public class StatusDetails
+	public class StatusDetails : BaseModel
 	{
 		public string TESTING_PROTOCOL_INTOLERANCE_399 { get; set; }
 		public string PREPARING_REPORT { get; set; }

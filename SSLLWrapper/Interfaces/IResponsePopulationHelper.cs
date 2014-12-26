@@ -5,8 +5,9 @@ namespace SSLLWrapper.Interfaces
 {
 	interface IResponsePopulationHelper
 	{
-		InfoModel InfoModel(HttpWebResponse webResponse, InfoModel infoModel);
-		AnalyzeModel AnalyzeModel(HttpWebResponse webResponse, AnalyzeModel analyzeModel);
-		EndpointDataModel EndpointDataModel(HttpWebResponse webResponse, EndpointDataModel endpointDataModel);
+		Info InfoModel(HttpWebResponse webResponse, Info infoModel);
+		Analyze AnalyzeModel(HttpWebResponse webResponse, Analyze analyzeModel);
+		Endpoint EndpointModel(HttpWebResponse webResponse, Endpoint endpointDataModel);
+		StatusDetails StatusDetailsModel(HttpWebResponse webResponse, StatusDetails statusDetails);
 	}
 }

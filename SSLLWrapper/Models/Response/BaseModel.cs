@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SSLLWrapper.Models.Response.BaseResponseSubModels;
+using SSLLWrapper.Models.Response.BaseSubModels;
 
 namespace SSLLWrapper.Models.Response
 {

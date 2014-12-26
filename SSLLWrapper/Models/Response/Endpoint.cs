@@ -2,7 +2,7 @@
 
 namespace SSLLWrapper.Models.Response
 {
-	public class Endpoint
+	public class Endpoint : BaseModel
 	{
 		public string ipAddress { get; set; }
 		public string statusMessage { get; set; }

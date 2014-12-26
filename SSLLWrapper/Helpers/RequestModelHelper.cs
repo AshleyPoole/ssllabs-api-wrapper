@@ -35,5 +35,10 @@ namespace SSLLWrapper.Helpers
 
 			return requestModel;
 		}
+
+		public RequestModel GetStatusCodeProperties(string apiBaseUrl, string action)
+		{
+			return new RequestModel() {ApiBaseUrl = apiBaseUrl, Action = action};
+		}
 	}
 }
