@@ -14,9 +14,9 @@ namespace SSLLWrapper
 	    private readonly IApi _api;
 	    private readonly IHttpWebResponseHelper _webResponseHelper;
 	    private readonly IRequestModelHelper _requestModelHelper;
+	    private readonly IResponsePopulationHelper _responsePopulationHelper;
 		private readonly IUrlHelper _urlHelper;
-	    public string ApiUrl { get; set; }
-	    public JsonSerializerSettings JsonSerializerSettings;
+	    private string ApiUrl { get; set; }
 
 	    public enum Publish
 	    {
@@ -48,13 +48,9 @@ namespace SSLLWrapper
 			_webResponseHelper = new HttpWebResponseHelper();
 			_requestModelHelper = new RequestModelHelper();
 		    _urlHelper = new UrlHelper();
-			JsonSerializerSettings = new JsonSerializerSettings();
 			_responsePopulationHelper = new ResponsePopulationHelper();
 
 		    ApiUrl = apiUrl;
-
-			// Ignoring null values when serializing json objects
-			JsonSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 		}
 
 		#endregion
@@ -63,19 +59,16 @@ namespace SSLLWrapper
 		{
 			var infoModel = new InfoModel();
 
-			// Building request model
+			// Building new request model
 		    var requestModel = _requestModelHelper.InfoProperties(ApiUrl, "info");
 
 			try
 			{
 				// Making Api request and gathering response
 				var webResponse = _api.MakeGetRequest(requestModel);
-				var webResult = _webResponseHelper.GetResponsePayload(webResponse);
 
-				// Trying to bind result to model
-				infoModel = JsonConvert.DeserializeObject<InfoModel>(webResult, JsonSerializerSettings);
-				infoModel.Headers.statusCode = _webResponseHelper.GetStatusCode(webResponse);
-				infoModel.Headers.statusDescription = _webResponseHelper.GetStatusDescription(webResponse);
+				// Binding result to model
+				_responsePopulationHelper.InfoModel(webResponse, infoModel);
 
 				if (infoModel.engineVersion != null)
 				{
@@ -120,12 +113,9 @@ namespace SSLLWrapper
 			{
 				// Making Api request and gathering response
 				var webResponse = _api.MakeGetRequest(requestModel);
-				var webResult = _webResponseHelper.GetResponsePayload(webResponse);
 
-				// Trying to bind result to model
-				analyzeModel = JsonConvert.DeserializeObject<AnalyzeModel>(webResult, JsonSerializerSettings);
-				analyzeModel.Headers.statusCode = _webResponseHelper.GetStatusCode(webResponse);
-				analyzeModel.Headers.statusDescription = _webResponseHelper.GetStatusDescription(webResponse);
+				// Binding result to model
+				_responsePopulationHelper.AnalyzeModel(webResponse, analyzeModel);
 			}
 			catch (Exception ex)
 			{
@@ -164,12 +154,9 @@ namespace SSLLWrapper
 			{
 				// Making Api request and gathering response
 				var webResponse = _api.MakeGetRequest(requestModel);
-				var webResult = _webResponseHelper.GetResponsePayload(webResponse);
 
-				// Trying to bind result to model
-				endpointDataModel = JsonConvert.DeserializeObject<EndpointDataModel>(webResult, JsonSerializerSettings);
-				endpointDataModel.Headers.statusCode = _webResponseHelper.GetStatusCode(webResponse);
-				endpointDataModel.Headers.statusDescription = _webResponseHelper.GetStatusDescription(webResponse);
+				// Binding result to model
+				_responsePopulationHelper.EndpointDataModel(webResponse, endpointDataModel);
 			}
 			catch (Exception ex)
 			{
