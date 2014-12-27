@@ -18,9 +18,10 @@ namespace SSLLWrapper.Helpers
 
 			requestModel.Parameters.Add("host", host);
 			requestModel.Parameters.Add("publish", publish);
-			requestModel.Parameters.Add("clearCache", clearCache);
-			//requestModel.Parameters.Add("fromCache", fromCache); // Temp commenting out
 			requestModel.Parameters.Add("all", all);
+
+			if (clearCache != "ignore") { requestModel.Parameters.Add("clearCache", clearCache); }
+			if (fromCache != "ignore") { requestModel.Parameters.Add("fromCache", fromCache); }
 
 			return requestModel;
 		}

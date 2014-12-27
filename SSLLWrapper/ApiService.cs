@@ -26,13 +26,15 @@ namespace SSLLWrapper
 	    public enum ClearCache
 	    {
 		    On,
-		    Off
+		    Off,
+			Ignore
 	    }
 
 	    public enum FromCache
 	    {
 		    On,
-		    Off
+		    Off,
+			Ignore
 	    }
 
 	    public enum All
@@ -67,7 +69,7 @@ namespace SSLLWrapper
 				var webResponse = _api.MakeGetRequest(requestModel);
 
 				// Binding result to model
-				_responsePopulationHelper.InfoModel(webResponse, infoModel);
+				infoModel = _responsePopulationHelper.InfoModel(webResponse, infoModel);
 
 				if (infoModel.engineVersion != null)
 				{
@@ -89,7 +91,7 @@ namespace SSLLWrapper
 	    public Analyze Analyze(string host)
 	    {
 			// overloaded method to provide a default set of options
-		    return Analyze(host, Publish.Off, ClearCache.On, FromCache.Off, All.On);
+		    return Analyze(host, Publish.Off, ClearCache.On, FromCache.Ignore, All.On);
 	    }
 
 		public Analyze Analyze(string host, Publish publish, ClearCache clearCache, FromCache fromCache, All all)
@@ -114,7 +116,7 @@ namespace SSLLWrapper
 				var webResponse = _api.MakeGetRequest(requestModel);
 
 				// Binding result to model
-				_responsePopulationHelper.AnalyzeModel(webResponse, analyzeModel);
+				analyzeModel = _responsePopulationHelper.AnalyzeModel(webResponse, analyzeModel);
 			}
 			catch (Exception ex)
 			{
@@ -155,7 +157,7 @@ namespace SSLLWrapper
 				var webResponse = _api.MakeGetRequest(requestModel);
 
 				// Binding result to model
-				_responsePopulationHelper.EndpointModel(webResponse, endpointModel);
+				endpointModel = _responsePopulationHelper.EndpointModel(webResponse, endpointModel);
 			}
 			catch (Exception ex)
 			{
@@ -182,7 +184,7 @@ namespace SSLLWrapper
 			    var webResponse = _api.MakeGetRequest(requestModel);
 
 				// Binding result to model
-			    _responsePopulationHelper.StatusDetailsModel(webResponse, statusDetailsModel);
+			    statusDetailsModel = _responsePopulationHelper.StatusDetailsModel(webResponse, statusDetailsModel);
 		    }
 		    catch (Exception ex)
 		    {
