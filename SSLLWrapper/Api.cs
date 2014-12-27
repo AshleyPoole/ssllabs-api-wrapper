@@ -4,7 +4,7 @@ using SSLLWrapper.Models;
 
 namespace SSLLWrapper
 {
-	public class Api : IApi
+	class Api : IApi
 	{
 		public HttpWebResponse MakeGetRequest(RequestModel requestModel)
 		{

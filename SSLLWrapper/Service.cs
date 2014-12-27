@@ -6,7 +6,7 @@ using SSLLWrapper.Models.Response.BaseSubModels;
 
 namespace SSLLWrapper
 {
-    public class ApiService
+    public class Service
     {
 	    #region construction
 
@@ -43,7 +43,7 @@ namespace SSLLWrapper
 		    Done
 	    }
 
-	    public ApiService(string apiUrl)
+	    public Service(string apiUrl)
 		{
 			_api = new Api();
 			_webResponseHelper = new HttpWebResponseHelper();

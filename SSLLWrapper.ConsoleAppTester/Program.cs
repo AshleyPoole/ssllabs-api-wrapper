@@ -6,7 +6,7 @@ namespace SSLLWrapper.ConsoleAppTester
 	class Program
 	{
 		private const string ApiUrl = "https://api.dev.ssllabs.com/api/fa78d5a4";
-		static readonly ApiService ApiService = new ApiService(ApiUrl);
+		static readonly Service ApiService = new Service(ApiUrl);
 
 		static void Main(string[] args)
 		{

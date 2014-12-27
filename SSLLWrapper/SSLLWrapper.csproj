@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api.cs" />
-    <Compile Include="ApiService.cs" />
+    <Compile Include="Service.cs" />
     <Compile Include="Helpers\HttpWebResponseHelper.cs" />
     <Compile Include="Interfaces\IApi.cs" />
     <Compile Include="Interfaces\IHttpWebResponseHelper.cs" />
