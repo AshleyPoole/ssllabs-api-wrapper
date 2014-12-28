@@ -7,8 +7,8 @@ This wrapper easies the communication to the API's for .NET developers which all
 
 **Notes**
 - SSL Labs' Assessment API's are currently still in development and are subject to change.
-- The wrapper is currently still in development aswell though is in a functional beta stage.
-- The wrapper does **NOT** use web scrapping like other wrappers which don't use the assesment API's.
+- The wrapper is currently still in development as well though is in a functional beta stage.
+- The wrapper does **NOT** use web scrapping like other wrappers which don't use the assessment API's.
 
 ### NuGet Package
 The wrapper can easily be imported into your project using the [SSLLWrapper NuGet package](https://www.nuget.org/packages/SSLLWrapper/). The NuGet install command for this package is:
