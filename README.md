@@ -216,7 +216,7 @@ public enum All
 ```
 
 #### To Do
-- Flesh out SSLWrapper.Tests project to ensure as most code as appropiate is tesed
+- Flesh out SSLWrapper.Tests project to ensure as most code as appropriate is tested
 - General refractor 
 
 ### Author
