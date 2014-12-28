@@ -31,6 +31,10 @@ Below are the method signatures of the SSLLWrapper Service.
 
 The Info method is used to determin if the API is online and returns an [Info response object](https://github.com/AshleyPoole/SSLLWrapper/blob/master/README.md#info-1). No input parameters are taken.
 
+```C#
+public Info Info()
+```
+
 ##### Analyze()
 
 The Analyze method is used to initiate an assessment or retrieve results. The results may only be partial so see SSL Labs documentation for more information as as GetEndpointDetails call may be needed to view the whole result set.
@@ -178,6 +182,37 @@ public string TESTING_SUITE_PREFERENCE { get; set; }
 public string TESTING_PROTO_3_2 { get; set; }
 public string TESTING_PROTO_3_3 { get; set; }
 public string TESTING_LONG_HANDSHAKE { get; set; }
+```
+
+#### Custom Parameters
+Custom parameters are as follows:
+
+```C#
+public enum Publish
+{
+    On,
+    Off
+}
+
+public enum ClearCache
+{
+    On,
+    Off,
+	Ignore
+}
+
+public enum FromCache
+{
+    On,
+    Off,
+	Ignore
+}
+
+public enum All
+{
+    On,
+    Done
+}
 ```
 
 #### To Do
