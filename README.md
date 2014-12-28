@@ -29,7 +29,7 @@ Below are the method signatures of the SSLLWrapper Service.
 
 ##### Info()
 
-The Info method is used to determin if the API is online and returns an [Info response object](https://github.com/AshleyPoole/SSLLWrapper/blob/master/README.md#info-1). No input parameters are taken.
+The Info method is used to determine if the API is online and returns an [Info response object](https://github.com/AshleyPoole/SSLLWrapper/blob/master/README.md#info-1). No input parameters are taken.
 
 ```C#
 public Info Info()
@@ -43,7 +43,7 @@ The Analyze method is used to initiate an assessment or retrieve results. The re
 public Analyze Analyze(string host, Publish publish, ClearCache clearCache, FromCache fromCache, All all)
 ```
 
-The wrapper also contains an overloaded Analyze method which only requires the host parameter. Internal is uses the following paramter options - Publish.Off, ClearCache.On, FromCache.Ignore, All.On.
+The wrapper also contains an overloaded Analyze method which only requires the host parameter. Internal is uses the following parameter options - Publish.Off, ClearCache.On, FromCache.Ignore, All.On.
 ```C#
 public Analyze Analyze(string host)
 ```
@@ -69,7 +69,7 @@ public StatusDetails GetStatusCodes()
 
 #### Response Objects
 
-All the response objects are static .NET objects which are populated from the SSL Labs Assement API's result.  Due to the response models are based on those derived from the API itself I will only provide a top level response model map. For more information on the properties available check out [their documentation](https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs.md#response-objects).
+All the response objects are static .NET objects which are populated from the SSL Labs Assessment API's result.  Due to the response models are based on those derived from the API itself I will only provide a top level response model map. For more information on the properties available check out [their documentation](https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs.md#response-objects).
 
 All response objects also inherit from a custom BaseModel to extent the usability to you as the developer, as well as core functionality needed to consume the API's. The properties are listed below for all top level or custom response objects.
 
@@ -221,5 +221,8 @@ public enum All
 
 ### Author
 Ashley Poole - www.ashleypoole.co.uk.
+[SSLWrapper project's home page](http://www.ashleypoole.co.uk/ssllwrapper?utm_source=github&utm_medium=githubproject&utm_campaign=ssllwrapper)
 
 Please contact me if you have any questions, issues or recommendations either via [my website](http://www.ashleypoole.co.uk), [Twitter](http://twitter.com/geekypants92) or [by email](mailto:git@ashleypoole.co.uk).
+
+
