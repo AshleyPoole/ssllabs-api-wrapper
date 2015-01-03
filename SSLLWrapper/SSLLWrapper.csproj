@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="External\SSLLabsApi.cs" />
+    <Compile Include="Models\Response\StatusCodes.cs" />
     <Compile Include="SSLLService.cs" />
     <Compile Include="Domain\WebResponseReader.cs" />
     <Compile Include="Interfaces\IApiProvider.cs" />
@@ -69,7 +70,7 @@
     <Compile Include="Models\Response\EndpointSubModels\Details.cs" />
     <Compile Include="Models\Response\Info.cs" />
     <Compile Include="Models\RequestModel.cs" />
-    <Compile Include="Models\Response\StatusDetails.cs" />
+    <Compile Include="Models\Response\StatusCodesSubModels\StatusDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

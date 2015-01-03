@@ -173,9 +173,9 @@ namespace SSLLWrapper
 		    return endpointModel;
 	    }
 
-	    public StatusDetails GetStatusCodes()
+	    public StatusCodes GetStatusCodes()
 	    {
-		    var statusDetailsModel = new StatusDetails();
+			var statusCodesModel = new StatusCodes();
 
 			// Building request model
 		    var requestModel = _requestModelFactory.NewStatusCodesRequestModel(ApiUrl, "getStatusCodes");
@@ -186,15 +186,15 @@ namespace SSLLWrapper
 			    var webResponse = _apiProvider.MakeGetRequest(requestModel);
 
 				// Binding result to model
-			    statusDetailsModel = _responsePopulation.StatusDetailsModel(webResponse, statusDetailsModel);
+			    statusCodesModel = _responsePopulation.StatusCodesModel(webResponse, statusCodesModel);
 		    }
 		    catch (Exception ex)
 		    {
-				statusDetailsModel.HasErrorOccurred = true;
-				statusDetailsModel.Errors.Add(new Error { message = ex.ToString() });
+				statusCodesModel.HasErrorOccurred = true;
+				statusCodesModel.Errors.Add(new Error { message = ex.ToString() });
 		    }
 
-		    return statusDetailsModel;
+		    return statusCodesModel;
 	    }
     }
 }

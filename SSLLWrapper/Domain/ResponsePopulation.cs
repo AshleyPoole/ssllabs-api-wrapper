@@ -50,15 +50,15 @@ namespace SSLLWrapper.Domain
 			return endpointModel;
 		}
 
-		public StatusDetails StatusDetailsModel(HttpWebResponse webResponse, StatusDetails statusDetails)
+		public StatusCodes StatusCodesModel(HttpWebResponse webResponse, StatusCodes statusCodes)
 		{
 			var webResult = _webResponseReader.GetResponsePayload(webResponse);
 
-			statusDetails = JsonConvert.DeserializeObject<StatusDetails>(webResult, JsonSerializerSettings);
-			statusDetails.Header.statusCode = _webResponseReader.GetStatusCode(webResponse);
-			statusDetails.Header.statusDescription = _webResponseReader.GetStatusDescription(webResponse);
+			statusCodes = JsonConvert.DeserializeObject<StatusCodes>(webResult, JsonSerializerSettings);
+			statusCodes.Header.statusCode = _webResponseReader.GetStatusCode(webResponse);
+			statusCodes.Header.statusDescription = _webResponseReader.GetStatusDescription(webResponse);
 
-			return statusDetails;
+			return statusCodes;
 		}
 	}
 }
