@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace SSLLWrapper.ConsoleAppTester
 {
@@ -20,7 +19,7 @@ namespace SSLLWrapper.ConsoleAppTester
 			var info = ApiService.Info();
 
 			Console.WriteLine("Has Error Occoured: {0}", info.HasErrorOccurred);
-			Console.WriteLine("Status Code: {0}", info.Headers.statusCode);
+			Console.WriteLine("Status Code: {0}", info.Header.statusCode);
 			Console.WriteLine("Engine Version: {0}", info.engineVersion);
 			Console.WriteLine("Online: {0}", info.Online);
 
@@ -32,7 +31,7 @@ namespace SSLLWrapper.ConsoleAppTester
 			var analyze = ApiService.Analyze("http://www.ashleypoole.co.uk");
 
 			Console.WriteLine("Has Error Occoured: {0}", analyze.HasErrorOccurred);
-			Console.WriteLine("Status Code: {0}", analyze.Headers.statusCode);
+			Console.WriteLine("Status Code: {0}", analyze.Header.statusCode);
 			Console.WriteLine("Status: {0}", analyze.status);
 
 			Console.ReadLine();
@@ -43,7 +42,7 @@ namespace SSLLWrapper.ConsoleAppTester
 			var endpointDataModel = ApiService.GetEndpointData("http://www.ashleypoole.co.uk", "104.28.6.2");
 
 			Console.WriteLine("Has Error Occoured: {0}", endpointDataModel.HasErrorOccurred);
-			Console.WriteLine("Status Code: {0}", endpointDataModel.Headers.statusCode);
+			Console.WriteLine("Status Code: {0}", endpointDataModel.Header.statusCode);
 			Console.WriteLine("IP Adress: {0}", endpointDataModel.ipAddress);
 			Console.WriteLine("Grade: {0}", endpointDataModel.grade);
 			Console.WriteLine("Status Message: {0}", endpointDataModel.statusMessage);

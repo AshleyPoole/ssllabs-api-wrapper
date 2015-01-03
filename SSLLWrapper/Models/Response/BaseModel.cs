@@ -5,13 +5,13 @@ namespace SSLLWrapper.Models.Response
 {
 	public class BaseModel
 	{
-		public Header Headers { get; set; }
+		public Header Header { get; set; }
 		public bool HasErrorOccurred { get; set; }
 		public List<Error> Errors { get; set; }
 
 		public BaseModel()
 		{
-			Headers = new Header();
+			Header = new Header();
 			Errors = new List<Error>();
 			this.HasErrorOccurred = false;
 		}

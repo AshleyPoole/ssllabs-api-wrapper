@@ -5,7 +5,7 @@ using SSLLWrapper.Models.Response;
 
 namespace SSLLWrapper.Helpers
 {
-	public class ResponsePopulationHelper : IResponsePopulationHelper
+	class ResponsePopulationHelper : IResponsePopulationHelper
 	{
 		public JsonSerializerSettings JsonSerializerSettings;
 		private readonly IHttpWebResponseHelper _webResponseHelper;
@@ -23,8 +23,8 @@ namespace SSLLWrapper.Helpers
 			var webResult = _webResponseHelper.GetResponsePayload(webResponse);
 
 			infoModel = JsonConvert.DeserializeObject<Info>(webResult, JsonSerializerSettings);
-			infoModel.Headers.statusCode = _webResponseHelper.GetStatusCode(webResponse);
-			infoModel.Headers.statusDescription = _webResponseHelper.GetStatusDescription(webResponse);
+			infoModel.Header.statusCode = _webResponseHelper.GetStatusCode(webResponse);
+			infoModel.Header.statusDescription = _webResponseHelper.GetStatusDescription(webResponse);
 
 			return infoModel;
 		}
@@ -34,8 +34,8 @@ namespace SSLLWrapper.Helpers
 			var webResult = _webResponseHelper.GetResponsePayload(webResponse);
 
 			analyzeModel = JsonConvert.DeserializeObject<Analyze>(webResult, JsonSerializerSettings);
-			analyzeModel.Headers.statusCode = _webResponseHelper.GetStatusCode(webResponse);
-			analyzeModel.Headers.statusDescription = _webResponseHelper.GetStatusDescription(webResponse);
+			analyzeModel.Header.statusCode = _webResponseHelper.GetStatusCode(webResponse);
+			analyzeModel.Header.statusDescription = _webResponseHelper.GetStatusDescription(webResponse);
 
 			return analyzeModel;
 		}
@@ -45,8 +45,8 @@ namespace SSLLWrapper.Helpers
 			var webResult = _webResponseHelper.GetResponsePayload(webResponse);
 
 			endpointModel = JsonConvert.DeserializeObject<Endpoint>(webResult, JsonSerializerSettings);
-			endpointModel.Headers.statusCode = _webResponseHelper.GetStatusCode(webResponse);
-			endpointModel.Headers.statusDescription = _webResponseHelper.GetStatusDescription(webResponse);
+			endpointModel.Header.statusCode = _webResponseHelper.GetStatusCode(webResponse);
+			endpointModel.Header.statusDescription = _webResponseHelper.GetStatusDescription(webResponse);
 
 			return endpointModel;
 		}
@@ -56,8 +56,8 @@ namespace SSLLWrapper.Helpers
 			var webResult = _webResponseHelper.GetResponsePayload(webResponse);
 
 			statusDetails = JsonConvert.DeserializeObject<StatusDetails>(webResult, JsonSerializerSettings);
-			statusDetails.Headers.statusCode = _webResponseHelper.GetStatusCode(webResponse);
-			statusDetails.Headers.statusDescription = _webResponseHelper.GetStatusDescription(webResponse);
+			statusDetails.Header.statusCode = _webResponseHelper.GetStatusCode(webResponse);
+			statusDetails.Header.statusDescription = _webResponseHelper.GetStatusDescription(webResponse);
 
 			return statusDetails;
 		}
