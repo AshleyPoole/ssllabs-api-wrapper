@@ -1,9 +1,8 @@
 using System;
-using SSLLWrapper.Interfaces;
 
-namespace SSLLWrapper.Helpers
+namespace SSLLWrapper.Domain
 {
-	class UrlHelper : IUrlHelper
+	class UrlValidation
 	{
 		public bool IsValid(string url)
 		{

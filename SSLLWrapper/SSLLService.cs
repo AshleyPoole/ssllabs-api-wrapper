@@ -1,20 +1,20 @@
 ﻿using System;
-using SSLLWrapper.Helpers;
+using SSLLWrapper.Domain;
+using SSLLWrapper.External;
 using SSLLWrapper.Interfaces;
 using SSLLWrapper.Models.Response;
 using SSLLWrapper.Models.Response.BaseSubModels;
 
 namespace SSLLWrapper
 {
-    public class Service
+    public class SSLLService
     {
 	    #region construction
 
-	    private readonly IApi _api;
-	    private readonly IHttpWebResponseHelper _webResponseHelper;
-	    private readonly IRequestModelHelper _requestModelHelper;
-	    private readonly IResponsePopulationHelper _responsePopulationHelper;
-		private readonly IUrlHelper _urlHelper;
+	    private readonly IApiProvider _api;
+	    private readonly RequestModelFactory _requestModelFactory;
+	    private readonly ResponsePopulation _responsePopulation;
+		private readonly UrlValidation _urlValidation;
 	    private string ApiUrl { get; set; }
 
 	    public enum Publish
@@ -43,13 +43,12 @@ namespace SSLLWrapper
 		    Done
 	    }
 
-	    public Service(string apiUrl)
+	    public SSLLService(string apiUrl)
 		{
-			_api = new Api();
-			_webResponseHelper = new HttpWebResponseHelper();
-			_requestModelHelper = new RequestModelHelper();
-		    _urlHelper = new UrlHelper();
-			_responsePopulationHelper = new ResponsePopulationHelper();
+			_api = new SSLLabsApi();
+			_requestModelFactory = new RequestModelFactory();
+		    _urlValidation = new UrlValidation();
+			_responsePopulation = new ResponsePopulation();
 
 		    ApiUrl = apiUrl;
 		}
@@ -61,7 +60,7 @@ namespace SSLLWrapper
 			var infoModel = new Info();
 
 			// Building new request model
-		    var requestModel = _requestModelHelper.InfoProperties(ApiUrl, "info");
+		    var requestModel = _requestModelFactory.NewInfoRequestModel(ApiUrl, "info");
 
 			try
 			{
@@ -69,7 +68,7 @@ namespace SSLLWrapper
 				var webResponse = _api.MakeGetRequest(requestModel);
 
 				// Binding result to model
-				infoModel = _responsePopulationHelper.InfoModel(webResponse, infoModel);
+				infoModel = _responsePopulation.InfoModel(webResponse, infoModel);
 
 				if (infoModel.engineVersion != null)
 				{
@@ -99,7 +98,7 @@ namespace SSLLWrapper
 			var analyzeModel = new Analyze();
 
 			// Checking host is valid before continuing
-			if (!_urlHelper.IsValid(host))
+			if (!_urlValidation.IsValid(host))
 			{
 				analyzeModel.HasErrorOccurred = true;
 				analyzeModel.Errors.Add(new Error {message = "Host does not pass preflight validation. No Api call has been made."});
@@ -107,7 +106,7 @@ namespace SSLLWrapper
 			}
 
 			// Building request model
-			var requestModel = _requestModelHelper.AnalyzeProperties(ApiUrl, "analyze", host, publish.ToString().ToLower(), clearCache.ToString().ToLower(), 
+			var requestModel = _requestModelFactory.NewAnalyzeRequestModel(ApiUrl, "analyze", host, publish.ToString().ToLower(), clearCache.ToString().ToLower(), 
 				fromCache.ToString().ToLower(), all.ToString().ToLower());
 
 			try
@@ -116,7 +115,7 @@ namespace SSLLWrapper
 				var webResponse = _api.MakeGetRequest(requestModel);
 
 				// Binding result to model
-				analyzeModel = _responsePopulationHelper.AnalyzeModel(webResponse, analyzeModel);
+				analyzeModel = _responsePopulation.AnalyzeModel(webResponse, analyzeModel);
 			}
 			catch (Exception ex)
 			{
@@ -140,7 +139,7 @@ namespace SSLLWrapper
 		    var endpointModel = new Endpoint();
 
 			// Checking host is valid before continuing
-			if (!_urlHelper.IsValid(host))
+			if (!_urlValidation.IsValid(host))
 			{
 				endpointModel.HasErrorOccurred = true;
 				endpointModel.Errors.Add(new Error { message = "Host does not pass preflight validation. No Api call has been made." });
@@ -148,7 +147,7 @@ namespace SSLLWrapper
 			}
 
 			// Building request model
-			var requestModel = _requestModelHelper.GetEndpointDataProperties(ApiUrl, "getEndpointData", host, s,
+			var requestModel = _requestModelFactory.NewEndpointDataRequestModel(ApiUrl, "getEndpointData", host, s,
 				fromCache.ToString());
 
 			try
@@ -157,7 +156,7 @@ namespace SSLLWrapper
 				var webResponse = _api.MakeGetRequest(requestModel);
 
 				// Binding result to model
-				endpointModel = _responsePopulationHelper.EndpointModel(webResponse, endpointModel);
+				endpointModel = _responsePopulation.EndpointModel(webResponse, endpointModel);
 			}
 			catch (Exception ex)
 			{
@@ -176,7 +175,7 @@ namespace SSLLWrapper
 		    var statusDetailsModel = new StatusDetails();
 
 			// Building request model
-		    var requestModel = _requestModelHelper.GetStatusCodeProperties(ApiUrl, "getStatusCodes");
+		    var requestModel = _requestModelFactory.NewStatusCodesRequestModel(ApiUrl, "getStatusCodes");
 
 		    try
 		    {
@@ -184,7 +183,7 @@ namespace SSLLWrapper
 			    var webResponse = _api.MakeGetRequest(requestModel);
 
 				// Binding result to model
-			    statusDetailsModel = _responsePopulationHelper.StatusDetailsModel(webResponse, statusDetailsModel);
+			    statusDetailsModel = _responsePopulation.StatusDetailsModel(webResponse, statusDetailsModel);
 		    }
 		    catch (Exception ex)
 		    {

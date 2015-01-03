@@ -1,10 +1,9 @@
 ﻿using System.IO;
 using System.Net;
-using SSLLWrapper.Interfaces;
 
-namespace SSLLWrapper.Helpers
+namespace SSLLWrapper.Domain
 {
-	class HttpWebResponseHelper : IHttpWebResponseHelper
+	class WebResponseReader
 	{
 		public string GetResponsePayload(HttpWebResponse webResponse)
 		{

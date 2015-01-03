@@ -1,17 +1,15 @@
-﻿using System;
-using SSLLWrapper.Interfaces;
-using SSLLWrapper.Models;
+﻿using SSLLWrapper.Models;
 
-namespace SSLLWrapper.Helpers
+namespace SSLLWrapper.Domain
 {
-	class RequestModelHelper : IRequestModelHelper
+	class RequestModelFactory
 	{
-		public RequestModel InfoProperties(string apiBaseUrl, string action)
+		public RequestModel NewInfoRequestModel(string apiBaseUrl, string action)
 		{
 			return new RequestModel() {ApiBaseUrl = apiBaseUrl, Action = action};
 		}
 
-		public RequestModel AnalyzeProperties(string apiBaseUrl, string action, string host, string publish, string clearCache,
+		public RequestModel NewAnalyzeRequestModel(string apiBaseUrl, string action, string host, string publish, string clearCache,
 			string fromCache, string all)
 		{
 			var requestModel = new RequestModel() { ApiBaseUrl = apiBaseUrl, Action = action};
@@ -26,7 +24,7 @@ namespace SSLLWrapper.Helpers
 			return requestModel;
 		}
 
-		public RequestModel GetEndpointDataProperties(string apiBaseUrl, string action, string host, string s, string fromCache)
+		public RequestModel NewEndpointDataRequestModel(string apiBaseUrl, string action, string host, string s, string fromCache)
 		{
 			var requestModel = new RequestModel() {ApiBaseUrl = apiBaseUrl, Action = action};
 
@@ -37,7 +35,7 @@ namespace SSLLWrapper.Helpers
 			return requestModel;
 		}
 
-		public RequestModel GetStatusCodeProperties(string apiBaseUrl, string action)
+		public RequestModel NewStatusCodesRequestModel(string apiBaseUrl, string action)
 		{
 			return new RequestModel() {ApiBaseUrl = apiBaseUrl, Action = action};
 		}

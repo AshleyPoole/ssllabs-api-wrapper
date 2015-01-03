@@ -5,7 +5,7 @@ namespace SSLLWrapper.ConsoleAppTester
 	class Program
 	{
 		private const string ApiUrl = "https://api.dev.ssllabs.com/api/fa78d5a4";
-		static readonly Service ApiService = new Service(ApiUrl);
+		static readonly SSLLService SSLLService = new SSLLService(ApiUrl);
 
 		static void Main(string[] args)
 		{
@@ -16,7 +16,7 @@ namespace SSLLWrapper.ConsoleAppTester
 
 		static void InfoTester()
 		{
-			var info = ApiService.Info();
+			var info = SSLLService.Info();
 
 			Console.WriteLine("Has Error Occoured: {0}", info.HasErrorOccurred);
 			Console.WriteLine("Status Code: {0}", info.Header.statusCode);
@@ -28,7 +28,7 @@ namespace SSLLWrapper.ConsoleAppTester
 
 		static void AnalyzeTester()
 		{
-			var analyze = ApiService.Analyze("http://www.ashleypoole.co.uk");
+			var analyze = SSLLService.Analyze("http://www.ashleypoole.co.uk");
 
 			Console.WriteLine("Has Error Occoured: {0}", analyze.HasErrorOccurred);
 			Console.WriteLine("Status Code: {0}", analyze.Header.statusCode);
@@ -39,7 +39,7 @@ namespace SSLLWrapper.ConsoleAppTester
 
 		static void GetEndpointData()
 		{
-			var endpointDataModel = ApiService.GetEndpointData("http://www.ashleypoole.co.uk", "104.28.6.2");
+			var endpointDataModel = SSLLService.GetEndpointData("http://www.ashleypoole.co.uk", "104.28.6.2");
 
 			Console.WriteLine("Has Error Occoured: {0}", endpointDataModel.HasErrorOccurred);
 			Console.WriteLine("Status Code: {0}", endpointDataModel.Header.statusCode);

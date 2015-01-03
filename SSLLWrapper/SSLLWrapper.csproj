@@ -44,17 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api.cs" />
-    <Compile Include="Service.cs" />
-    <Compile Include="Helpers\HttpWebResponseHelper.cs" />
-    <Compile Include="Interfaces\IApi.cs" />
-    <Compile Include="Interfaces\IHttpWebResponseHelper.cs" />
-    <Compile Include="Interfaces\IUrlHelper.cs" />
-    <Compile Include="Interfaces\IRequestModelHelper.cs" />
-    <Compile Include="Helpers\RequestModelHelper.cs" />
-    <Compile Include="Interfaces\IResponsePopulationHelper.cs" />
-    <Compile Include="Helpers\UrlHelper.cs" />
-    <Compile Include="Helpers\ResponsePopulationHelper.cs" />
+    <Compile Include="External\SSLLabsApi.cs" />
+    <Compile Include="SSLLService.cs" />
+    <Compile Include="Domain\WebResponseReader.cs" />
+    <Compile Include="Interfaces\IApiProvider.cs" />
+    <Compile Include="Domain\RequestModelFactory.cs" />
+    <Compile Include="Domain\UrlValidation.cs" />
+    <Compile Include="Domain\ResponsePopulation.cs" />
     <Compile Include="Models\Response\Analyze.cs" />
     <Compile Include="Models\Response\Endpoint.cs" />
     <Compile Include="Models\Response\BaseModel.cs" />

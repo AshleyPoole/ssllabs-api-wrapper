@@ -3,7 +3,7 @@ using SSLLWrapper.Models;
 
 namespace SSLLWrapper.Interfaces
 {
-	public interface IApi
+	public interface IApiProvider
 	{
 		HttpWebResponse MakeGetRequest(RequestModel requestModel);
 	}

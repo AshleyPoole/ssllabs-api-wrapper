@@ -2,9 +2,9 @@
 using SSLLWrapper.Interfaces;
 using SSLLWrapper.Models;
 
-namespace SSLLWrapper
+namespace SSLLWrapper.External
 {
-	class Api : IApi
+	class SSLLabsApi : IApiProvider
 	{
 		public HttpWebResponse MakeGetRequest(RequestModel requestModel)
 		{
