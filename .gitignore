@@ -11,3 +11,7 @@ SSLLWrapper.Tests/obj/
 SSLLWrapper.Tests/bin/
 SSLLWrapper.ConsoleAppTester/bin/
 SSLLWrapper.ConsoleAppTester/obj/
+SSLLWrapper.IntegrationTests/obj/Release/
+SSLLWrapper.IntegrationTests/obj/Debug/
+SSLLWrapper.IntegrationTests/bin/Release/
+SSLLWrapper.IntegrationTests/bin/Debug/
