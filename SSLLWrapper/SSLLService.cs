@@ -11,7 +11,7 @@ namespace SSLLWrapper
     {
 	    #region construction
 
-	    private readonly IApiProvider _api;
+	    private readonly IApiProvider _apiProvider;
 	    private readonly RequestModelFactory _requestModelFactory;
 	    private readonly ResponsePopulation _responsePopulation;
 		private readonly UrlValidation _urlValidation;
@@ -43,15 +43,18 @@ namespace SSLLWrapper
 		    Done
 	    }
 
-	    public SSLLService(string apiUrl)
-		{
-			_api = new SSLLabsApi();
+		public SSLLService(string apiUrl) : this(apiUrl, new SSLLabsApi())
+	    {
+	    }
+
+		internal SSLLService(string apiUrl, IApiProvider apiProvider)
+	    {
+			_apiProvider = apiProvider;
 			_requestModelFactory = new RequestModelFactory();
 		    _urlValidation = new UrlValidation();
 			_responsePopulation = new ResponsePopulation();
-
 		    ApiUrl = apiUrl;
-		}
+	    }
 
 		#endregion
 
@@ -65,7 +68,7 @@ namespace SSLLWrapper
 			try
 			{
 				// Making Api request and gathering response
-				var webResponse = _api.MakeGetRequest(requestModel);
+				var webResponse = _apiProvider.MakeGetRequest(requestModel);
 
 				// Binding result to model
 				infoModel = _responsePopulation.InfoModel(webResponse, infoModel);
@@ -112,7 +115,7 @@ namespace SSLLWrapper
 			try
 			{
 				// Making Api request and gathering response
-				var webResponse = _api.MakeGetRequest(requestModel);
+				var webResponse = _apiProvider.MakeGetRequest(requestModel);
 
 				// Binding result to model
 				analyzeModel = _responsePopulation.AnalyzeModel(webResponse, analyzeModel);
@@ -153,7 +156,7 @@ namespace SSLLWrapper
 			try
 			{
 				// Making Api request and gathering response
-				var webResponse = _api.MakeGetRequest(requestModel);
+				var webResponse = _apiProvider.MakeGetRequest(requestModel);
 
 				// Binding result to model
 				endpointModel = _responsePopulation.EndpointModel(webResponse, endpointModel);
@@ -180,7 +183,7 @@ namespace SSLLWrapper
 		    try
 		    {
 				// Making Api request and gathering response
-			    var webResponse = _api.MakeGetRequest(requestModel);
+			    var webResponse = _apiProvider.MakeGetRequest(requestModel);
 
 				// Binding result to model
 			    statusDetailsModel = _responsePopulation.StatusDetailsModel(webResponse, statusDetailsModel);
