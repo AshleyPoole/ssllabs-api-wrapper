@@ -6,9 +6,9 @@ SSLLWrapper stands for SSL Labs Wrapper which is the first publicly available .N
 This wrapper easies the communication to the API's for .NET developers which allows you as the developer to focus on your project rather than managing the plumbing and overhead required to consume the API's.
 
 **Notes**
-- SSL Labs' Assessment API's are currently still in development and are subject to change.
-- The wrapper is currently still in development as well though is in a functional beta stage.
+- SSL Labs' Assessment API's are currently still in development and are subject to change. This therefore may impact the wrapper though updates will be provided.
 - The wrapper does **NOT** use web scrapping like other wrappers which don't use the assessment API's.
+- This documentation is for v1.0.2 release.
 
 ### NuGet Package
 The wrapper can easily be imported into your project using the [SSLLWrapper NuGet package](https://www.nuget.org/packages/SSLLWrapper/). The NuGet install command for this package is:
@@ -18,10 +18,10 @@ The wrapper can easily be imported into your project using the [SSLLWrapper NuGe
 ### Wrapper Usage
 When creating a new instance of SSLLWrapper you must supply the API url during the initialization. For example in C# this would be expressed as the following: 
 ```C#
-var service = new SSLLWrapper.Service("https://api.dev.ssllabs.com/api/fa78d5a4");
+var ssllService = new SSLLWrapper.SSLLService("https://api.dev.ssllabs.com/api/fa78d5a4");
 
 // Or if you use the SSLWrapper namespace this can be shorten to
-var service = new Service("https://api.dev.ssllabs.com/api/fa78d5a4");
+var ssllService = new SSLLService("https://api.dev.ssllabs.com/api/fa78d5a4");
 ```
 #### Methods
 
@@ -48,9 +48,9 @@ The wrapper also contains an overloaded Analyze method which only requires the h
 public Analyze Analyze(string host)
 ```
 
-##### GetEndpointDetails()
+##### GetEndpointData()
 
-The GetEndPointDetails method is used to retrieve a fully results set.
+The GetEndpointData method is used to retrieve a fully results set.
 ```C#
 public Endpoint GetEndpointData(string host, string s, FromCache fromCache)
 ```
@@ -64,7 +64,7 @@ public Endpoint GetEndpointData(string host, string s)
 
 The GetStatusCodes method is use to retrieve a list of status codes and messages.
 ```C#
-public StatusDetails GetStatusCodes()
+public StatusCodes GetStatusCodes()
 ```
 
 #### Response Objects
@@ -132,56 +132,9 @@ public bool isExceptional { get; set; }
 public Details Details { get; set; }
 ```
 
-##### StatusDetails
+##### StatusCodes
 ```C#
-public string TESTING_PROTOCOL_INTOLERANCE_399 { get; set; }
-public string PREPARING_REPORT { get; set; }
-public string TESTING_SESSION_RESUMPTION { get; set; }
-public string TESTING_NPN { get; set; }
-public string RETRIEVING_CERT_V3__NO_SNI { get; set; }
-public string RETRIEVING_CERT_V3__SNI_APEX { get; set; }
-public string TESTING_CVE_2014_0224 { get; set; }
-public string TESTING_CAPABILITIES { get; set; }
-public string TESTING_HEARTBLEED { get; set; }
-public string TESTING_PROTO_3_3_V2H { get; set; }
-public string TESTING_SESSION_TICKETS { get; set; }
-public string VALIDATING_TRUST_PATHS { get; set; }
-public string TESTING_RENEGOTIATION { get; set; }
-public string TESTING_HTTPS { get; set; }
-public string TESTING_V2H_HANDSHAKE { get; set; }
-public string TESTING_STRICT_RI { get; set; }
-public string TESTING_SUITES_DEPRECATED { get; set; }
-public string TESTING_HANDSHAKE_SIMULATION { get; set; }
-public string TESTING_STRICT_SNI { get; set; }
-public string TESTING_PROTO_3_1_V2H { get; set; }
-public string TESTING_PROTOCOL_INTOLERANCE_499 { get; set; }
-public string TESTING_TLS_VERSION_INTOLERANCE { get; set; }
-public string TESTING_PROTOCOL_INTOLERANCE_304 { get; set; }
-public string TESTING_SUITES_BULK { get; set; }
-public string TESTING_BEAST { get; set; }
-public string TESTING_PROTO_2_0 { get; set; }
-public string BUILDING_TRUST_PATHS { get; set; }
-public string TESTING_PROTO_3_1 { get; set; }
-public string TESTING_PROTO_3_0_V2H { get; set; }
-public string TESTING_PROTO_3_0 { get; set; }
-public string TESTING_PROTOCOL_INTOLERANCE_300 { get; set; }
-public string TESTING_PROTOCOL_INTOLERANCE_301 { get; set; }
-public string TESTING_PROTOCOL_INTOLERANCE_302 { get; set; }
-public string TESTING_PROTOCOL_INTOLERANCE_303 { get; set; }
-public string TESTING_OCSP_STAPLING_PRIME { get; set; }
-public string TESTING_EXTENSION_INTOLERANCE { get; set; }
-public string TESTING_SSL2_SUITES { get; set; }
-public string TESTING_OCSP_STAPLING { get; set; }
-public string TESTING_SUITES { get; set; }
-public string TESTING_PROTO_3_2_V2H { get; set; }
-public string TESTING_POODLE_TLS { get; set; }
-public string RETRIEVING_CERT_V3__SNI_WWW { get; set; }
-public string CHECKING_REVOCATION { get; set; }
-public string TESTING_COMPRESSION { get; set; }
-public string TESTING_SUITE_PREFERENCE { get; set; }
-public string TESTING_PROTO_3_2 { get; set; }
-public string TESTING_PROTO_3_3 { get; set; }
-public string TESTING_LONG_HANDSHAKE { get; set; }
+public StatusDetails StatusDetails { get; set; }
 ```
 
 #### Custom Parameters
@@ -216,11 +169,11 @@ public enum All
 ```
 
 #### To Do
-- Flesh out SSLWrapper.Tests project to ensure as most code as appropriate is tested
-- General refractor 
+- Flesh out SSLWrapper.Tests
 
 ### Author
 Ashley Poole - www.ashleypoole.co.uk.
+
 [SSLWrapper project's home page](http://www.ashleypoole.co.uk/ssllwrapper?utm_source=github&utm_medium=githubproject&utm_campaign=ssllwrapper)
 
 Please contact me if you have any questions, issues or recommendations either via [my website](http://www.ashleypoole.co.uk), [Twitter](http://twitter.com/geekypants92) or [by email](mailto:git@ashleypoole.co.uk).
