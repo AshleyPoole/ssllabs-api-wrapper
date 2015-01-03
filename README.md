@@ -55,7 +55,7 @@ The GetEndpointData method is used to retrieve a fully results set.
 public Endpoint GetEndpointData(string host, string s, FromCache fromCache)
 ```
 
-The wrapper also contains an overloaded GetEndpointDetail method which only requires the host and s parameter. Internal is uses FromCache.Off.
+The wrapper also contains an overloaded GetEndpointData method which only requires the host and s parameter. Internal is uses FromCache.Off.
 ```C#
 public Endpoint GetEndpointData(string host, string s)
 ```
