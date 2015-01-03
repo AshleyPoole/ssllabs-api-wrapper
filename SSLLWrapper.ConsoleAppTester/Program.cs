@@ -11,7 +11,8 @@ namespace SSLLWrapper.ConsoleAppTester
 		{
 			//AnalyzeTester();
 			//InfoTester();
-			GetEndpointData();
+			//GetEndpointData();
+			GetStatusCodes();
 		}
 
 		static void InfoTester()
@@ -39,13 +40,23 @@ namespace SSLLWrapper.ConsoleAppTester
 
 		static void GetEndpointData()
 		{
-			var endpointDataModel = SSLLService.GetEndpointData("http://www.ashleypoole.co.uk", "104.28.6.2");
+			var endpointDetails = SSLLService.GetEndpointData("http://www.ashleypoole.co.uk", "104.28.6.2");
 
-			Console.WriteLine("Has Error Occoured: {0}", endpointDataModel.HasErrorOccurred);
-			Console.WriteLine("Status Code: {0}", endpointDataModel.Header.statusCode);
-			Console.WriteLine("IP Adress: {0}", endpointDataModel.ipAddress);
-			Console.WriteLine("Grade: {0}", endpointDataModel.grade);
-			Console.WriteLine("Status Message: {0}", endpointDataModel.statusMessage);
+			Console.WriteLine("Has Error Occoured: {0}", endpointDetails.HasErrorOccurred);
+			Console.WriteLine("Status Code: {0}", endpointDetails.Header.statusCode);
+			Console.WriteLine("IP Adress: {0}", endpointDetails.ipAddress);
+			Console.WriteLine("Grade: {0}", endpointDetails.grade);
+			Console.WriteLine("Status Message: {0}", endpointDetails.statusMessage);
+
+			Console.ReadLine();
+		}
+
+		static void GetStatusCodes()
+		{
+			var statusDetails = SSLLService.GetStatusCodes();
+
+			Console.WriteLine("Has Error Occoured: {0}", statusDetails.HasErrorOccurred);
+			Console.WriteLine("Status Code: {0}", statusDetails.Header.statusCode);
 
 			Console.ReadLine();
 		}
