@@ -16,5 +16,15 @@ namespace SSLLWrapper.Domain
 
 			return valid;
 		}
+
+		public string Format(string url)
+		{
+			if (!url.EndsWith("/"))
+			{
+				url = url + "/";
+			}
+
+			return url;
+		}
 	}
 }
