@@ -5,6 +5,6 @@ namespace SSLLWrapper.Interfaces
 {
 	interface IApiProvider
 	{
-		HttpWebResponse MakeGetRequest(RequestModel requestModel);
+		WebResponseModel MakeGetRequest(RequestModel requestModel);
 	}
 }

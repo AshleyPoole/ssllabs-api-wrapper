@@ -1,64 +1,59 @@
 ﻿using System.Net;
 using Newtonsoft.Json;
+using SSLLWrapper.Models;
 using SSLLWrapper.Models.Response;
+using SSLLWrapper.Models.Response.BaseSubModels;
 
 namespace SSLLWrapper.Domain
 {
 	class ResponsePopulation
 	{
 		public JsonSerializerSettings JsonSerializerSettings;
-		private readonly WebResponseReader _webResponseReader;
 
 		public ResponsePopulation()
 		{
 			// Ignoring null values when serializing json objects
 			JsonSerializerSettings = new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore};
-
-			_webResponseReader = new WebResponseReader();
 		}
 
-		public Info InfoModel(HttpWebResponse webResponse, Info infoModel)
+		public Info InfoModel(WebResponseModel webResponse, Info infoModel)
 		{
-			var webResult = _webResponseReader.GetResponsePayload(webResponse);
-
-			infoModel = JsonConvert.DeserializeObject<Info>(webResult, JsonSerializerSettings);
-			infoModel.Header.statusCode = _webResponseReader.GetStatusCode(webResponse);
-			infoModel.Header.statusDescription = _webResponseReader.GetStatusDescription(webResponse);
+			infoModel = JsonConvert.DeserializeObject<Info>(webResponse.Payloay, JsonSerializerSettings);
+			infoModel.Header = PopulateHeader(infoModel.Header, webResponse);
 
 			return infoModel;
 		}
 
-		public Analyze AnalyzeModel(HttpWebResponse webResponse, Analyze analyzeModel)
+		public Analyze AnalyzeModel(WebResponseModel webResponse, Analyze analyzeModel)
 		{
-			var webResult = _webResponseReader.GetResponsePayload(webResponse);
-
-			analyzeModel = JsonConvert.DeserializeObject<Analyze>(webResult, JsonSerializerSettings);
-			analyzeModel.Header.statusCode = _webResponseReader.GetStatusCode(webResponse);
-			analyzeModel.Header.statusDescription = _webResponseReader.GetStatusDescription(webResponse);
+			analyzeModel = JsonConvert.DeserializeObject<Analyze>(webResponse.Payloay, JsonSerializerSettings);
+			analyzeModel.Header = PopulateHeader(analyzeModel.Header, webResponse);
 
 			return analyzeModel;
 		}
 
-		public Endpoint EndpointModel(HttpWebResponse webResponse, Endpoint endpointModel)
+		public Endpoint EndpointModel(WebResponseModel webResponse, Endpoint endpointModel)
 		{
-			var webResult = _webResponseReader.GetResponsePayload(webResponse);
-
-			endpointModel = JsonConvert.DeserializeObject<Endpoint>(webResult, JsonSerializerSettings);
-			endpointModel.Header.statusCode = _webResponseReader.GetStatusCode(webResponse);
-			endpointModel.Header.statusDescription = _webResponseReader.GetStatusDescription(webResponse);
+			endpointModel = JsonConvert.DeserializeObject<Endpoint>(webResponse.Payloay, JsonSerializerSettings);
+			endpointModel.Header = PopulateHeader(endpointModel.Header, webResponse);
 
 			return endpointModel;
 		}
 
-		public StatusCodes StatusCodesModel(HttpWebResponse webResponse, StatusCodes statusCodes)
+		public StatusCodes StatusCodesModel(WebResponseModel webResponse, StatusCodes statusCodes)
 		{
-			var webResult = _webResponseReader.GetResponsePayload(webResponse);
-
-			statusCodes = JsonConvert.DeserializeObject<StatusCodes>(webResult, JsonSerializerSettings);
-			statusCodes.Header.statusCode = _webResponseReader.GetStatusCode(webResponse);
-			statusCodes.Header.statusDescription = _webResponseReader.GetStatusDescription(webResponse);
+			statusCodes = JsonConvert.DeserializeObject<StatusCodes>(webResponse.Payloay, JsonSerializerSettings);
+			statusCodes.Header = PopulateHeader(statusCodes.Header, webResponse);
 
 			return statusCodes;
+		}
+
+		public Header PopulateHeader(Header header, WebResponseModel webResponse)
+		{
+			header.statusCode = webResponse.StatusCode;
+			header.statusDescription = webResponse.StatusDescription;
+
+			return header;
 		}
 	}
 }
