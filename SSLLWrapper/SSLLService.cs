@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using SSLLWrapper.Domain;
 using SSLLWrapper.External;
 using SSLLWrapper.Interfaces;
@@ -127,6 +128,32 @@ namespace SSLLWrapper
 
 			return analyzeModel;
 		}
+
+	    public Analyze AutomaticAnalyze(string host)
+	    {
+			return AutomaticAnalyze(host, 300, 1000);
+	    }
+
+	    public Analyze AutomaticAnalyze(string host, int maxWaitInterval, int sleepInterval)
+	    {
+			return AutomaticAnalyze(host, Publish.Off, ClearCache.On, FromCache.Ignore, All.On, maxWaitInterval, sleepInterval);
+	    }
+
+		public Analyze AutomaticAnalyze(string host, Publish publish, ClearCache clearCache, FromCache fromCache, All all, int maxWaitInterval, int sleepInterval)
+	    {
+		    var startTime = DateTime.Now;
+			var sleepIntervalMilliseconds = sleepInterval * 10;
+			var analyzeModel = Analyze(host, publish, clearCache, fromCache, all);
+
+			// Shouldn't have to check status header as HasErrorOccurred should be enough
+			while (analyzeModel.HasErrorOccurred == false && analyzeModel.status != "READY" && (DateTime.Now - startTime).TotalSeconds < maxWaitInterval)
+			{
+				Thread.Sleep(sleepIntervalMilliseconds);
+				analyzeModel = Analyze(host, publish, clearCache, fromCache, all);
+		    }
+
+			return analyzeModel;
+	    }
 
 		public Endpoint GetEndpointData(string host, string s)
 		{
