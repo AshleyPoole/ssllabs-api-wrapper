@@ -53,7 +53,7 @@ namespace SSLLWrapper
 			_requestModelFactory = new RequestModelFactory();
 		    _urlValidation = new UrlValidation();
 			_responsePopulation = new ResponsePopulation();
-		    ApiUrl = apiUrl;
+			ApiUrl = _urlValidation.Format(apiUrl);
 	    }
 
 		#endregion
@@ -67,10 +67,8 @@ namespace SSLLWrapper
 
 			try
 			{
-				// Making Api request and gathering response
+				// Making Api request and binding result to model
 				var webResponse = _apiProvider.MakeGetRequest(requestModel);
-
-				// Binding result to model
 				infoModel = _responsePopulation.InfoModel(webResponse, infoModel);
 
 				if (infoModel.engineVersion != null)
@@ -114,10 +112,8 @@ namespace SSLLWrapper
 
 			try
 			{
-				// Making Api request and gathering response
+				// Making Api request and binding result to model
 				var webResponse = _apiProvider.MakeGetRequest(requestModel);
-
-				// Binding result to model
 				analyzeModel = _responsePopulation.AnalyzeModel(webResponse, analyzeModel);
 			}
 			catch (Exception ex)
@@ -155,10 +151,8 @@ namespace SSLLWrapper
 
 			try
 			{
-				// Making Api request and gathering response
+				// Making Api request and binding result to model
 				var webResponse = _apiProvider.MakeGetRequest(requestModel);
-
-				// Binding result to model
 				endpointModel = _responsePopulation.EndpointModel(webResponse, endpointModel);
 			}
 			catch (Exception ex)
@@ -176,16 +170,12 @@ namespace SSLLWrapper
 	    public StatusCodes GetStatusCodes()
 	    {
 			var statusCodesModel = new StatusCodes();
-
-			// Building request model
 		    var requestModel = _requestModelFactory.NewStatusCodesRequestModel(ApiUrl, "getStatusCodes");
 
 		    try
 		    {
-				// Making Api request and gathering response
+				// Making Api request and binding result to model
 			    var webResponse = _apiProvider.MakeGetRequest(requestModel);
-
-				// Binding result to model
 			    statusCodesModel = _responsePopulation.StatusCodesModel(webResponse, statusCodesModel);
 		    }
 		    catch (Exception ex)

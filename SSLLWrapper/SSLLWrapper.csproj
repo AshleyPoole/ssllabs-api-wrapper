@@ -46,8 +46,8 @@
   <ItemGroup>
     <Compile Include="External\SSLLabsApi.cs" />
     <Compile Include="Models\Response\StatusCodes.cs" />
+    <Compile Include="Models\WebResponseModel.cs" />
     <Compile Include="SSLLService.cs" />
-    <Compile Include="Domain\WebResponseReader.cs" />
     <Compile Include="Interfaces\IApiProvider.cs" />
     <Compile Include="Domain\RequestModelFactory.cs" />
     <Compile Include="Domain\UrlValidation.cs" />

@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System.IO;
+using System.Linq;
+using System.Net;
 using SSLLWrapper.Interfaces;
 using SSLLWrapper.Models;
 
@@ -6,31 +8,29 @@ namespace SSLLWrapper.External
 {
 	class SSLLabsApi : IApiProvider
 	{
-		public HttpWebResponse MakeGetRequest(RequestModel requestModel)
+		public WebResponseModel MakeGetRequest(RequestModel requestModel)
 		{
 			var url = requestModel.ApiBaseUrl + "/" + requestModel.Action;
 
-			// ** TO DO - Refactor this
 			if (requestModel.Parameters.Count >= 1)
 			{
-				url = url + "?";
-				var iteration = 0;
-
-				foreach(var parameter in requestModel.Parameters)
-				{
-					iteration++;
-					url = url + parameter.Key + "=" + parameter.Value;
-
-					if (iteration != requestModel.Parameters.Count)
-						url = url + "&";
-				}
+				url = string.Format("{0}{1}{2}", url, "?", string.Join("&", (from parameter in requestModel.Parameters 
+									  where parameter.Value != null select string.Format("{0}={1}", parameter.Key, parameter.Value))));
 			}
+
+			var webResponseModel = new WebResponseModel() {Url = url};
 
 			var request = (HttpWebRequest)WebRequest.Create(url);
 			request.Method = "GET";
 
-			// Make request and return response
-			return (HttpWebResponse)request.GetResponse(); ;
+			var response = (HttpWebResponse)request.GetResponse();
+			var streamReader = new StreamReader(response.GetResponseStream());
+
+			webResponseModel.Payloay = streamReader.ReadToEnd();
+			webResponseModel.StatusCode = (int)response.StatusCode;
+			webResponseModel.StatusDescription = response.StatusDescription;
+
+			return webResponseModel;
 		}
 	}
 }
