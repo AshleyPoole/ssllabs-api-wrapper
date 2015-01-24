@@ -131,7 +131,7 @@ namespace SSLLWrapper
 
 	    public Analyze AutomaticAnalyze(string host)
 	    {
-			return AutomaticAnalyze(host, 300, 1000);
+			return AutomaticAnalyze(host, 300, 15);
 	    }
 
 	    public Analyze AutomaticAnalyze(string host, int maxWaitInterval, int sleepInterval)
@@ -142,7 +142,7 @@ namespace SSLLWrapper
 		public Analyze AutomaticAnalyze(string host, Publish publish, ClearCache clearCache, FromCache fromCache, All all, int maxWaitInterval, int sleepInterval)
 	    {
 		    var startTime = DateTime.Now;
-			var sleepIntervalMilliseconds = sleepInterval * 10;
+			var sleepIntervalMilliseconds = sleepInterval * 1000;
 			var analyzeModel = Analyze(host, publish, clearCache, fromCache, all);
 
 			// Shouldn't have to check status header as HasErrorOccurred should be enough

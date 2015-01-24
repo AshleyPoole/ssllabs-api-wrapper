@@ -64,6 +64,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AutomaticAnalyzeTests.cs" />
     <Compile Include="AnalyzeTests.cs" />
     <Compile Include="GetEndpointDetails.cs" />
     <Compile Include="GetStatusCodesTests.cs" />
