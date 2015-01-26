@@ -52,7 +52,7 @@ namespace given_that_I_make_a_analyze_request
 		}
 
 		[TestMethod]
-		public void then_should_analyze_status_should_not_be_null()
+		public void then_analyze_status_should_not_be_null()
 		{
 			_analyze.status.Should().NotBeNullOrEmpty();
 		}
