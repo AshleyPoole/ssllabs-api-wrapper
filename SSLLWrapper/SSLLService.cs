@@ -61,8 +61,6 @@ namespace SSLLWrapper
 		public Info Info()
 		{
 			var infoModel = new Info();
-
-			// Building new request model
 		    var requestModel = _requestModelFactory.NewInfoRequestModel(ApiUrl, "info");
 
 			try
@@ -82,7 +80,6 @@ namespace SSLLWrapper
 				infoModel.Errors.Add(new Error { message = ex.ToString() });
 			}
 
-			// Checking if errors have occoured either from ethier api or wrapper
 			if (infoModel.Errors.Count != 0 && !infoModel.HasErrorOccurred) { infoModel.HasErrorOccurred = true;}
 
 			return infoModel;
@@ -112,7 +109,6 @@ namespace SSLLWrapper
 
 			try
 			{
-				// Making Api request and binding result to model
 				var webResponse = _apiProvider.MakeGetRequest(requestModel);
 				analyzeModel = _responsePopulation.AnalyzeModel(webResponse, analyzeModel);
 			}
@@ -151,7 +147,6 @@ namespace SSLLWrapper
 
 			try
 			{
-				// Making Api request and binding result to model
 				var webResponse = _apiProvider.MakeGetRequest(requestModel);
 				endpointModel = _responsePopulation.EndpointModel(webResponse, endpointModel);
 			}
@@ -174,7 +169,6 @@ namespace SSLLWrapper
 
 		    try
 		    {
-				// Making Api request and binding result to model
 			    var webResponse = _apiProvider.MakeGetRequest(requestModel);
 			    statusCodesModel = _responsePopulation.StatusCodesModel(webResponse, statusCodesModel);
 		    }
