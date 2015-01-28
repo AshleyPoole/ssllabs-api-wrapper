@@ -7,19 +7,18 @@ using SSLLWrapper;
 using SSLLWrapper.Interfaces;
 using SSLLWrapper.Models;
 using SSLLWrapper.Models.Response;
+using SSLLWrapper.Tests.AnalyzeSharedTests;
 
 namespace given_that_I_make_a_analyze_request
 {
 	[TestClass]
-	public class when_the_api_is_online_and_a_valid_request_is_made
+	public class when_the_api_is_online_and_a_valid_request_is_made : PositiveTests
 	{
-		private static Analyze _analyzeResponse;
-		private const string TestHost = "https://www.ashleypoole.co.uk";
-
 		[ClassInitialize]
 		public static void Setup(TestContext testContext)
 		{
 			var mockedApiProvider = new Mock<IApiProvider>();
+			TestHost = "www.ashleypoole.co.uk";
 			var webResponseModel = new WebResponseModel()
 			{
 				Payloay = "{\"host\":\"www.ashleypoole.co.uk\",\"port\":443,\"protocol\":\"HTTPS\",\"isPublic\":true,\"status\":\"READY\",\"" +
@@ -36,31 +35,13 @@ namespace given_that_I_make_a_analyze_request
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
 			var ssllService = new SSLLService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
-			_analyzeResponse = ssllService.Analyze(TestHost);
-		}
-
-		[TestMethod]
-		public void then_the_error_count_should_be_zero()
-		{
-			_analyzeResponse.Errors.Count.Should().Be(0);
-		}
-
-		[TestMethod]
-		public void then_HasErrorOccurred_should_be_false()
-		{
-			_analyzeResponse.HasErrorOccurred.Should().BeFalse();
+			AnalyzeResponse = ssllService.Analyze(TestHost);
 		}
 
 		[TestMethod]
 		public void then_the_header_status_code_should_be_200()
 		{
-			_analyzeResponse.Header.statusCode.Should().Be(200);
-		}
-
-		[TestMethod]
-		public void then_the_host_should_match_the_host_passed_into_analyze()
-		{
-			_analyzeResponse.host.Should().Be(TestHost);
+			AnalyzeResponse.Header.statusCode.Should().Be(200);
 		}
 	}
 }
