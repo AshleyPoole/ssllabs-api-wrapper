@@ -67,8 +67,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AnalyzeSharedTests\PositiveTests.cs" />
-    <Compile Include="AnalyzeSharedTests\NegativeTests.cs" />
     <Compile Include="AnalyzeTests.cs" />
     <Compile Include="GenericPositiveTests.cs" />
     <Compile Include="GenericNegativeTests.cs" />
