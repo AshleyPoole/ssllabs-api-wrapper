@@ -20,7 +20,7 @@ namespace given_that_I_make_a_analyze_request
 			TestHost = "https://www.ashleypoole.co.uk";
 			var webResponseModel = new WebResponseModel()
 			{
-				Payloay = "{\"host\":\"www.ashleypoole.co.uk\",\"port\":443,\"protocol\":\"HTTPS\",\"isPublic\":true,\"status\":\"READY\",\"" +
+				Payloay = "{\"host\":\"https://www.ashleypoole.co.uk\",\"port\":443,\"protocol\":\"HTTPS\",\"isPublic\":true,\"status\":\"READY\",\"" +
 				          "startTime\":1422115006431,\"testTime\":1422115131804,\"engineVersion\":\"1.12.8\",\"criteriaVersion\":\"2009i\",\"" +
 				          "endpoints\":[{\"ipAddress\":\"104.28.6.2\",\"statusMessage\":\"Ready\",\"grade\":\"A\",\"hasWarnings\":false,\"" +
 				          "isExceptional\":false,\"progress\":100,\"duration\":64286,\"eta\":2393,\"delegation\":3},{\"ipAddress\":\"104.28.7.2\"" +
@@ -54,7 +54,7 @@ namespace given_that_I_make_a_analyze_request
 			TestHost = "https://www.ashleypoole.co.uk";
 			var webResponseModel = new WebResponseModel()
 			{
-				Payloay = "{\"host\":\"www.ashleypoole.co.uk\",\"port\":443,\"protocol\":\"HTTP\",\"isPublic\":false,\"status\":\"DNS\"" +
+				Payloay = "{\"host\":\"https://www.ashleypoole.co.uk\",\"port\":443,\"protocol\":\"HTTP\",\"isPublic\":false,\"status\":\"DNS\"" +
 				          ",\"statusMessage\":\"Resolving domain names\",\"startTime\":1422475200798,\"engineVersion\":\"1.12.8\"," +
 				          "\"criteriaVersion\":\"2009i\"}",
 				StatusCode = 200,
@@ -85,14 +85,14 @@ namespace given_that_I_make_a_analyze_request
 			TestHost = "https://www.ashleypoole.co.uk";
 			var webResponseModel = new WebResponseModel()
 			{
-				Payloay = "{\"host\":\"www.ashleypoole.co.uk\",\"port\":443,\"protocol\":\"HTTP\",\"isPublic\":false,\"" +
+				Payloay = "{\"host\":\"https://www.ashleypoole.co.uk\",\"port\":443,\"protocol\":\"HTTP\",\"isPublic\":true,\"" +
 				          "status\":\"IN_PROGRESS\",\"startTime\":1422479488403,\"engineVersion\":\"1.12.8\",\"criteriaVersion\":\"2009i\"" +
 				          ",\"endpoints\":[{\"ipAddress\":\"104.28.6.2\",\"statusMessage\":\"In progress\",\"statusDetails\":\"TESTING_HTTPS\"" +
 				          ",\"statusDetailsMessage\":\"Sending one complete HTTPS request\",\"progress\":-1,\"eta\":-1,\"delegation\":3}," +
 				          "{\"ipAddress\":\"104.28.7.2\",\"statusMessage\":\"Pending\",\"progress\":-1,\"eta\":-1,\"delegation\":3}]}",
 				StatusCode = 200,
 				StatusDescription = "Ok",
-				Url = ("https://api.dev.ssllabs.com/api/fa78d5a4/analyze?host=" + TestHost + "&publish=on&clearCache=on&all=done")
+				Url = ("https://api.dev.ssllabs.com/api/fa78d5a4/analyze?host=" + TestHost + "&publish=on&all=done")
 			};
 
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
@@ -116,15 +116,39 @@ namespace given_that_I_make_a_analyze_request
 		public static void Setup(TestContext testContext)
 		{
 			var mockedApiProvider = new Mock<IApiProvider>();
+			TestHost = "https://www2.ashleypoole.co.uk";
+			var webResponseModel = new WebResponseModel()
+			{
+				Payloay = "{\"host\":\"https://www2.ashleypoole.co.uk\",\"port\":443,\"protocol\":\"HTTP\",\"isPublic\":false,\"status\":\"ERROR\"," +
+				          "\"statusMessage\":\"Unable to resolve domain name\",\"startTime\":1422478797953,\"testTime\":1422478798017," +
+				          "\"engineVersion\":\"1.12.8\",\"criteriaVersion\":\"2009i\",\"cacheExpiryTime\":1422478858017}",
+				StatusCode = 200,
+				StatusDescription = "Ok",
+				Url = ("https://api.dev.ssllabs.com/api/fa78d5a4/analyze?host=" + TestHost)
+			};
+
+			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
+
+			var ssllService = new SSLLService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
+			Response = ssllService.Analyze(TestHost, SSLLService.Publish.On, SSLLService.ClearCache.On,
+				SSLLService.FromCache.Ignore, SSLLService.All.Done);
+		}
+	}
+
+	[TestClass]
+	public class when_a_invalid_request_is_made_with_both_clearCache_and_fromCache : NegativeTests
+	{
+		[ClassInitialize]
+		public static void Setup(TestContext testContext)
+		{
+			var mockedApiProvider = new Mock<IApiProvider>();
 			TestHost = "https://www.ashleypoole.co.uk";
 			var webResponseModel = new WebResponseModel()
 			{
-				Payloay = "{\"host\":\"www2.ashleypoole.co.uk\",\"port\":443,\"protocol\":\"HTTP\",\"isPublic\":false,\"status\":\"ERROR\"," +
-				          "\"statusMessage\":\"Unable to resolve domain name\",\"startTime\":1422478797953,\"testTime\":1422478798017," +
-				          "\"engineVersion\":\"1.12.8\",\"criteriaVersion\":\"2009i\",\"cacheExpiryTime\":1422478858017}",
-				StatusCode = 500,
-				StatusDescription = "Bad Request",
-				Url = ("https://api.dev.ssllabs.com/api/fa78d5a4/analyze?host=" + TestHost)
+				Payloay = "{\"errors\":[{\"message\":\"Parameters \u0027fromCache\u0027 and \u0027clearCache\u0027 cannot be used at the same time\"}]}",
+				StatusCode = 400,
+				StatusDescription = "Ok",
+				Url = ("https://api.dev.ssllabs.com/api/fa78d5a4/analyze?host=" + TestHost + "&clearCache=on&fromCache=on&all=done")
 			};
 
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
@@ -142,7 +166,7 @@ namespace given_that_I_make_a_analyze_request
 		[TestMethod]
 		public void then_the_host_property_should_match_the_requested_hostname()
 		{
-			Response.host.Should().Be(TestHost.Substring(8));
+			Response.host.Should().Be(TestHost);
 		}
 
 		[TestMethod]

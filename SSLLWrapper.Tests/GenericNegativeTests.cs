@@ -19,5 +19,11 @@ namespace SSLLWrapper.Tests
 		{
 			Response.HasErrorOccurred.Should().BeTrue();
 		}
+
+		[TestMethod]
+		public void then_the_status_code_should_not_be_ok_200()
+		{
+			Response.Header.statusCode.Should().NotBe(200);
+		}
 	}
 }
