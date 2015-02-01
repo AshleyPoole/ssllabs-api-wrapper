@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SSLLWrapper;
@@ -161,6 +163,26 @@ namespace given_that_I_make_a_analyze_request
 			var ssllService = new SSLLService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
 			Response = ssllService.Analyze(TestHost, SSLLService.Publish.On, SSLLService.ClearCache.On,
 				SSLLService.FromCache.Ignore, SSLLService.All.Done);
+		}
+	}
+
+	[TestClass]
+	public class when_a_invalid_request_is_made_with_malformed_url_hostname : NegativeTests
+	{
+		[ClassInitialize]
+		public static void Setup(TestContext testContext)
+		{
+			var mockedApiProvider = new Mock<IApiProvider>();
+			TestHost = "www.ashleypoole.somereallybadurl";
+
+			var ssllService = new SSLLService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
+			Response = ssllService.Analyze(TestHost);
+		}
+
+		[TestMethod]
+		public void then_preflight_error_should_be_thrown()
+		{
+			Response.Errors.Any(x => x.message == "Host does not pass preflight validation. No Api call has been made.").Should().BeTrue();
 		}
 	}
 
