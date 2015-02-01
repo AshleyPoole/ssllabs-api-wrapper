@@ -8,7 +8,6 @@ This wrapper easies the communication to the API's for .NET developers which all
 **Notes**
 - SSL Labs' Assessment API's are currently still in development and are subject to change. This therefore may impact the wrapper though updates will be provided.
 - The wrapper does **NOT** use web scrapping like other wrappers which don't use the assessment API's.
-- This documentation is for v1.0.2 release.
 
 ### NuGet Package
 The wrapper can easily be imported into your project using the [SSLLWrapper NuGet package](https://www.nuget.org/packages/SSLLWrapper/). The NuGet install command for this package is:
@@ -167,9 +166,6 @@ public enum All
     Done
 }
 ```
-
-#### To Do
-- Flesh out SSLWrapper.Tests
 
 ### Author
 Ashley Poole - www.ashleypoole.co.uk.
