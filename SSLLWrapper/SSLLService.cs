@@ -60,7 +60,7 @@ namespace SSLLWrapper
 
 		public Info Info()
 		{
-			var infoModel = new Info();
+			var infoModel = new Info() {};
 		    var requestModel = _requestModelFactory.NewInfoRequestModel(ApiUrl, "info");
 
 			try

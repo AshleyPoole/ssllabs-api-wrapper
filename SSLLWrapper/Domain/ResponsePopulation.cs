@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using Newtonsoft.Json;
 using SSLLWrapper.Models;
 using SSLLWrapper.Models.Response;
@@ -18,6 +19,8 @@ namespace SSLLWrapper.Domain
 
 		public Info InfoModel(WebResponseModel webResponse, Info infoModel)
 		{
+			if (webResponse.Payloay == null) { throw new Exception("webResponse payload is null. Unable to bind null."); }
+
 			infoModel = JsonConvert.DeserializeObject<Info>(webResponse.Payloay, JsonSerializerSettings);
 			infoModel.Header = PopulateHeader(infoModel.Header, webResponse);
 
