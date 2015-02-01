@@ -29,6 +29,8 @@ namespace SSLLWrapper.Domain
 			analyzeModel = JsonConvert.DeserializeObject<Analyze>(webResponse.Payloay, JsonSerializerSettings);
 			analyzeModel.Header = PopulateHeader(analyzeModel.Header, webResponse);
 
+			if (analyzeModel.status == "ERROR") { analyzeModel.Errors.Add(new Error() { message = analyzeModel.statusMessage }); }
+
 			return analyzeModel;
 		}
 

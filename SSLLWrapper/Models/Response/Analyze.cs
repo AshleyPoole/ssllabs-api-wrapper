@@ -9,6 +9,7 @@ namespace SSLLWrapper.Models.Response
 		public string protocol { get; set; }
 		public bool isPublic { get; set; }
 		public string status { get; set; }
+		public string statusMessage { get; set; }
 		public long startTime { get; set; }
 		public string engineVersion { get; set; }
 		public string criteriaVersion { get; set; }
