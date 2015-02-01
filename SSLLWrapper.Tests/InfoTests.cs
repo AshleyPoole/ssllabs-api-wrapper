@@ -58,9 +58,9 @@ namespace given_that_I_make_a_info_request
 			var mockedApiProvider = new Mock<IApiProvider>();
 			var webResponseModel = new WebResponseModel()
 			{
-				Payloay = "",
-				StatusCode = 400,
-				StatusDescription = "Bad Request",
+				Payloay = null,
+				StatusCode = 0,
+				StatusDescription = null,
 				Url = "https://api.dev.ssllabs.com/api/fa78d5a4/info"
 			};
 
@@ -71,15 +71,9 @@ namespace given_that_I_make_a_info_request
 		}
 
 		[TestMethod]
-		public void then_the_info_response_header_status_code_should_be_400()
+		public void then_the_info_response_header_status_code_should_indicate_failure()
 		{
-			Response.Header.statusCode.Should().Be(400);
-		}
-
-		[TestMethod]
-		public void then_the_info_response_header_status_description_should_match_api()
-		{
-			Response.Header.statusDescription.Should().Be("Bad Request");
+			Response.Header.statusCode.Should().Be(0);
 		}
 	}
 

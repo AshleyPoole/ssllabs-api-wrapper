@@ -9,7 +9,7 @@ namespace SSLLWrapper.Tests
 		public static T Response;
 
 		[TestMethod]
-		public void then_the_error_count_should_be_greater_than_zero()
+		public void then_at_least_one_error_should_be_thrown()
 		{
 			Response.Errors.Count.Should().BeGreaterOrEqualTo(1);
 		}
@@ -21,7 +21,7 @@ namespace SSLLWrapper.Tests
 		}
 
 		[TestMethod]
-		public void then_the_status_code_should_not_be_ok_200()
+		public void then_the_status_code_should_be_valid_for_response()
 		{
 			Response.Header.statusCode.Should().NotBe(200);
 		}

@@ -1,5 +1,4 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SSLLWrapper;
@@ -20,7 +19,7 @@ namespace given_that_I_make_a_analyze_request
 			TestHost = "https://www.ashleypoole.co.uk";
 			var webResponseModel = new WebResponseModel()
 			{
-				Payloay = "{\"host\":\"https://www.ashleypoole.co.uk\",\"port\":443,\"protocol\":\"HTTPS\",\"isPublic\":true,\"status\":\"READY\",\"" +
+				Payloay = "{\"host\":\"https://www.ashleypoole.co.uk\",\"port\":443,\"protocol\":\"HTTPS\",\"isPublic\":false,\"status\":\"READY\",\"" +
 				          "startTime\":1422115006431,\"testTime\":1422115131804,\"engineVersion\":\"1.12.8\",\"criteriaVersion\":\"2009i\",\"" +
 				          "endpoints\":[{\"ipAddress\":\"104.28.6.2\",\"statusMessage\":\"Ready\",\"grade\":\"A\",\"hasWarnings\":false,\"" +
 				          "isExceptional\":false,\"progress\":100,\"duration\":64286,\"eta\":2393,\"delegation\":3},{\"ipAddress\":\"104.28.7.2\"" +
@@ -133,6 +132,12 @@ namespace given_that_I_make_a_analyze_request
 			Response = ssllService.Analyze(TestHost, SSLLService.Publish.On, SSLLService.ClearCache.On,
 				SSLLService.FromCache.Ignore, SSLLService.All.Done);
 		}
+
+		[TestMethod]
+		public void then_the_status_code_should_be_valid_for_response()
+		{
+			Response.Header.statusCode.Should().Be(200);
+		}
 	}
 
 	[TestClass]
@@ -193,7 +198,7 @@ namespace given_that_I_make_a_analyze_request
 		}
 
 		[TestMethod]
-		public void then_a_error_message_should_be_returned()
+		public void then_at__least_one_error_should_be_thrown()
 		{
 			Response.Errors.Count.Should().BeGreaterOrEqualTo(1);
 		}
