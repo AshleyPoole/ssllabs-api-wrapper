@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using SSLLWrapper.Interfaces;
 using SSLLWrapper.Models.Response.BaseSubModels;
 
 namespace SSLLWrapper.Models.Response
 {
-	public class BaseModel
+	public class BaseModel : IBaseResponse
 	{
 		public Header Header { get; set; }
 		public bool HasErrorOccurred { get; set; }
