@@ -9,11 +9,13 @@ namespace SSLLWrapper.Models.Response
 		public Header Header { get; set; }
 		public bool HasErrorOccurred { get; set; }
 		public List<Error> Errors { get; set; }
+		public Wrapper Wrapper { get; set; }
 
 		public BaseModel()
 		{
 			Header = new Header();
 			Errors = new List<Error>();
+			Wrapper = new Wrapper();
 			this.HasErrorOccurred = false;
 		}
 	}

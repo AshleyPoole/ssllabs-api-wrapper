@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="External\SSLLabsApi.cs" />
     <Compile Include="Interfaces\IBaseResponse.cs" />
+    <Compile Include="Models\Response\BaseSubModels\Wrapper.cs" />
     <Compile Include="Models\Response\StatusCodes.cs" />
     <Compile Include="Models\WebResponseModel.cs" />
     <Compile Include="SSLLService.cs" />
