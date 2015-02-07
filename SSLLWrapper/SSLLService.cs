@@ -141,6 +141,9 @@ namespace SSLLWrapper
 			var sleepIntervalMilliseconds = sleepInterval * 1000;
 			var analyzeModel = Analyze(host, publish, clearCache, fromCache, all);
 
+			// Ignoring cache settings after first request to prevent loop
+			clearCache = ClearCache.Ignore;
+
 			// Shouldn't have to check status header as HasErrorOccurred should be enough
 			while (analyzeModel.HasErrorOccurred == false && analyzeModel.status != "READY" && (DateTime.Now - startTime).TotalSeconds < maxWaitInterval)
 			{
