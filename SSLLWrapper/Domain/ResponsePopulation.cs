@@ -23,6 +23,7 @@ namespace SSLLWrapper.Domain
 
 			infoModel = JsonConvert.DeserializeObject<Info>(webResponse.Payloay, JsonSerializerSettings);
 			infoModel.Header = PopulateHeader(infoModel.Header, webResponse);
+			infoModel.Wrapper.ApiCommandUrl = webResponse.Url;
 
 			return infoModel;
 		}
@@ -31,6 +32,7 @@ namespace SSLLWrapper.Domain
 		{
 			analyzeModel = JsonConvert.DeserializeObject<Analyze>(webResponse.Payloay, JsonSerializerSettings);
 			analyzeModel.Header = PopulateHeader(analyzeModel.Header, webResponse);
+			analyzeModel.Wrapper.ApiCommandUrl = webResponse.Url;
 
 			if (analyzeModel.status == "ERROR") { analyzeModel.Errors.Add(new Error() { message = analyzeModel.statusMessage }); }
 
@@ -41,6 +43,7 @@ namespace SSLLWrapper.Domain
 		{
 			endpointModel = JsonConvert.DeserializeObject<Endpoint>(webResponse.Payloay, JsonSerializerSettings);
 			endpointModel.Header = PopulateHeader(endpointModel.Header, webResponse);
+			endpointModel.Wrapper.ApiCommandUrl = webResponse.Url;
 
 			return endpointModel;
 		}
@@ -49,6 +52,7 @@ namespace SSLLWrapper.Domain
 		{
 			statusCodes = JsonConvert.DeserializeObject<StatusCodes>(webResponse.Payloay, JsonSerializerSettings);
 			statusCodes.Header = PopulateHeader(statusCodes.Header, webResponse);
+			statusCodes.Wrapper.ApiCommandUrl = webResponse.Url;
 
 			return statusCodes;
 		}
