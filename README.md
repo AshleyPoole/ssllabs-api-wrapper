@@ -47,6 +47,20 @@ The wrapper also contains an overloaded Analyze method which only requires the h
 public Analyze Analyze(string host)
 ```
 
+##### AutomaticAnalyze()
+
+The Analyze method is used to initiate and wait for an assessment to complete before retrieving results. Compared to the normal Analyze() method this method keeps checking the Api and only when a scan has finished does it return. This saves the comsumer from having to write their own logic for handling an assessment in progress.
+Another call to GetEndpointDetails() may be needed to view the whole result set for a given endpoint.
+
+```C#
+public Analyze AutomaticAnalyze(string host, Publish publish, ClearCache clearCache, FromCache fromCache, All all)
+```
+
+The wrapper also contains an overloaded AutomaticAnalyze method which only requires the host parameter. Internal is uses the following parameter options - Publish.Off, ClearCache.On, FromCache.Ignore, All.On.
+```C#
+public Analyze AutomaticAnalyze(string host)
+```
+
 ##### GetEndpointData()
 
 The GetEndpointData method is used to retrieve a fully results set.
