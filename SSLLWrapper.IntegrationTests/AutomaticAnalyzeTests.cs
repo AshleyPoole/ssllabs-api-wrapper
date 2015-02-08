@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SSLLWrapper;
 using SSLLWrapper.Models.Response;
 
-namespace given_that_I_make_a_analyze_request
+namespace given_that_I_make_a_automaticanalyze_request
 {
 	[TestClass]
 	public class when_i_expect_a_successful_result
@@ -18,7 +18,7 @@ namespace given_that_I_make_a_analyze_request
 		{
 			_host = ConfigurationManager.AppSettings.Get("EndpointHost");
 			_ssllService = new SSLLService(ConfigurationManager.AppSettings.Get("ApiUrl"));
-			_analyze = _ssllService.Analyze(_host);
+			_analyze = _ssllService.AutomaticAnalyze(_host);
 		}
 
 		[TestMethod]
@@ -52,7 +52,7 @@ namespace given_that_I_make_a_analyze_request
 		}
 
 		[TestMethod]
-		public void then_analyze_status_should_not_be_null()
+		public void then_should_analyze_status_should_not_be_null()
 		{
 			_analyze.status.Should().NotBeNullOrEmpty();
 		}
