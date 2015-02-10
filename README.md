@@ -186,6 +186,6 @@ Ashley Poole - www.ashleypoole.co.uk.
 
 [SSLWrapper project's home page](http://www.ashleypoole.co.uk/ssllwrapper?utm_source=github&utm_medium=githubproject&utm_campaign=ssllwrapper)
 
-Please contact me if you have any questions, issues or recommendations either via [my website](http://www.ashleypoole.co.uk), [Twitter](http://twitter.com/geekypants92) or [by email](mailto:git@ashleypoole.co.uk).
+Please contact me if you have any questions, issues or recommendations either via [my website](http://www.ashleypoole.co.uk), [Twitter](http://twitter.com/AshleyPooleUK) or [by email](mailto:git@ashleypoole.co.uk).
 
 
