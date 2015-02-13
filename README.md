@@ -15,20 +15,20 @@ The wrapper can easily be imported into your project using the [SSLLWrapper NuGe
 **PM> Install-Package SSLLWrapper**
 
 ### Wrapper Usage
-When creating a new instance of SSL Labs wrapper service you must supply the API url during the initialization. For example in C# this would be expressed as the following: 
+When creating a new instance of SSL Labs api wrapper service you must supply the API url during the initialization. For example in C# this would be expressed as the following: 
 ```C#
-var ssllService = new SSLLWrapper.SSLLService("https://api.dev.ssllabs.com/api/fa78d5a4");
+var ssllService = new SSLLabsApiWrapper.SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4");
 
-// Or if you use the SSLWrapper namespace this can be shorten to
-var ssllService = new SSLLService("https://api.dev.ssllabs.com/api/fa78d5a4");
+// Or if you use the SSLLabsApiWrapper namespace this can be shorten to
+var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4");
 ```
 #### Methods
 
-Below are the method signatures of the SSL Labs wrapper service.
+Below are the method signatures of the SSL Labs api wrapper service.
 
 ##### Info()
 
-The Info method is used to determine if the API is online and returns an [Info response object](https://github.com/AshleyPoole/SSLLWrapper/blob/master/README.md#info-1). No input parameters are taken.
+The Info method is used to determine if the API is online and returns an [Info response object](https://github.com/AshleyPoole/sslLabs-api-wrapper/blob/master/README.md#info-1). No input parameters are taken.
 
 ```C#
 public Info Info()
