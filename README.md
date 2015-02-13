@@ -1,7 +1,7 @@
-SSLLWrapper
+What Is this wrapper?
 ===========
 
-SSLLWrapper stands for SSL Labs Wrapper which is the first publicly available .NET wrapper developed for the [SSL Labs' Assessment API's](https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs.md) that allow the consumer to test SSL servers on the public internet.
+This is the first publicly available .NET wrapper developed for the [SSL Labs' Assessment API's](https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs.md) that allow the consumer to test SSL servers on the public internet.
 
 This wrapper easies the communication to the API's for .NET developers which allows you as the developer to focus on your project rather than managing the plumbing and overhead required to consume the API's.
 
@@ -15,7 +15,7 @@ The wrapper can easily be imported into your project using the [SSLLWrapper NuGe
 **PM> Install-Package SSLLWrapper**
 
 ### Wrapper Usage
-When creating a new instance of SSLLWrapper you must supply the API url during the initialization. For example in C# this would be expressed as the following: 
+When creating a new instance of SSL Labs wrapper service you must supply the API url during the initialization. For example in C# this would be expressed as the following: 
 ```C#
 var ssllService = new SSLLWrapper.SSLLService("https://api.dev.ssllabs.com/api/fa78d5a4");
 
@@ -24,7 +24,7 @@ var ssllService = new SSLLService("https://api.dev.ssllabs.com/api/fa78d5a4");
 ```
 #### Methods
 
-Below are the method signatures of the SSLLWrapper Service.
+Below are the method signatures of the SSL Labs wrapper service.
 
 ##### Info()
 
@@ -184,7 +184,7 @@ public enum All
 ### Author
 Ashley Poole - www.ashleypoole.co.uk.
 
-[SSLWrapper project's home page](http://www.ashleypoole.co.uk/ssllwrapper?utm_source=github&utm_medium=githubproject&utm_campaign=ssllwrapper)
+[Project's home page](http://www.ashleypoole.co.uk/ssllabs-api-wrapper?utm_source=github&utm_medium=githubproject&utm_campaign=ssllwrapper)
 
 Please contact me if you have any questions, issues or recommendations either via [my website](http://www.ashleypoole.co.uk), [Twitter](http://twitter.com/AshleyPooleUK) or [by email](mailto:git@ashleypoole.co.uk).
 
