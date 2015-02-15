@@ -10,9 +10,9 @@ This wrapper easies the communication to the API's for .NET developers which all
 - The wrapper does **NOT** use web scrapping like other wrappers which don't use the assessment API's.
 
 ### NuGet Package
-The wrapper can easily be imported into your project using the [SSLLWrapper NuGet package](https://www.nuget.org/packages/SSLLWrapper/). The NuGet install command for this package is:
+The wrapper can easily be imported into your project using the [NuGet package](https://www.nuget.org/packages/SSLLabsApiWrapper/). The NuGet install command for this package is:
 
-**PM> Install-Package SSLLWrapper**
+**PM> Install-Package SSLLabsApiWrapper**
 
 ### Wrapper Usage
 When creating a new instance of SSL Labs api wrapper service you must supply the API url during the initialization. For example in C# this would be expressed as the following: 
