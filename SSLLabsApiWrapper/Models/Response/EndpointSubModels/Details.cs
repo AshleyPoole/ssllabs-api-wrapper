@@ -18,6 +18,7 @@ namespace SSLLabsApiWrapper.Models.Response.EndpointSubModels
 		public int sessionResumption { get; set; }
 		public int compressionMethods { get; set; }
 		public bool supportsNpn { get; set; }
+		public string npnProtocols { get; set; }
 		public int sessionTickets { get; set; }
 		public bool ocspStapling { get; set; }
 		public bool sniRequired { get; set; }
@@ -30,6 +31,7 @@ namespace SSLLabsApiWrapper.Models.Response.EndpointSubModels
 		public bool heartbeat { get; set; }
 		public int openSslCcs { get; set; }
 		public int poodleTls { get; set; }
+		public bool fallbackScsv { get; set; }
 
 		public Details()
 		{

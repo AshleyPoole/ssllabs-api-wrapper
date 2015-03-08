@@ -7,9 +7,9 @@
 		public int cipherStrength { get; set; }
 		public int ecdhBits { get; set; }
 		public int ecdhStrength { get; set; }
-		public int? dhStrength { get; set; }
-		public int? dhP { get; set; }
-		public int? dhG { get; set; }
-		public int? dhYs { get; set; }
+		public int? dhStrength { get; set; } //**Deprecated - To be removed in new release 
+		public int? dhP { get; set; } //**Deprecated - To be removed in new release 
+		public int? dhG { get; set; } //**Deprecated - To be removed in new release 
+		public int? dhYs { get; set; } //**Deprecated - To be removed in new release 
 	}
 }
