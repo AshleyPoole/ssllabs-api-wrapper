@@ -15,3 +15,13 @@ SSLLWrapper.IntegrationTests/obj/Release/
 SSLLWrapper.IntegrationTests/obj/Debug/
 SSLLWrapper.IntegrationTests/bin/Release/
 SSLLWrapper.IntegrationTests/bin/Debug/
+SSLLabsApiWrapper/obj/Debug/
+SSLLabsApiWrapper.Tests/bin/Debug/
+SSLLabsApiWrapper/bin/
+SSLLabsApiWrapper.Tests/obj/
+SSLLabsApiWrapper/obj/
+SSLLabsApiWrapper.IntegrationTests/bin/
+SSLLabsApiWrapper.IntegrationTests/obj/Debug/SSLLWrapper.IntegrationTests.csproj.FileListAbsolute.txt
+SSLLabsApiWrapper.IntegrationTests/obj/
+SSLLabsApiWrapper.Tests/bin/
+*.nupkg

@@ -1,7 +1,7 @@
-SSLLWrapper
+What Is this wrapper?
 ===========
 
-SSLLWrapper stands for SSL Labs Wrapper which is the first publicly available .NET wrapper developed for the [SSL Labs' Assessment API's](https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs.md) that allow the consumer to test SSL servers on the public internet.
+This is the first publicly available .NET wrapper developed for the [SSL Labs' Assessment API's](https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs.md) that allow the consumer to test SSL servers on the public internet.
 
 This wrapper easies the communication to the API's for .NET developers which allows you as the developer to focus on your project rather than managing the plumbing and overhead required to consume the API's.
 
@@ -10,25 +10,25 @@ This wrapper easies the communication to the API's for .NET developers which all
 - The wrapper does **NOT** use web scrapping like other wrappers which don't use the assessment API's.
 
 ### NuGet Package
-The wrapper can easily be imported into your project using the [SSLLWrapper NuGet package](https://www.nuget.org/packages/SSLLWrapper/). The NuGet install command for this package is:
+The wrapper can easily be imported into your project using the [NuGet package](https://www.nuget.org/packages/SSLLabsApiWrapper/). The NuGet install command for this package is:
 
-**PM> Install-Package SSLLWrapper**
+**PM> Install-Package SSLLabsApiWrapper**
 
 ### Wrapper Usage
-When creating a new instance of SSLLWrapper you must supply the API url during the initialization. For example in C# this would be expressed as the following: 
+When creating a new instance of SSL Labs api wrapper service you must supply the API url during the initialization. For example in C# this would be expressed as the following: 
 ```C#
-var ssllService = new SSLLWrapper.SSLLService("https://api.dev.ssllabs.com/api/fa78d5a4");
+var ssllService = new SSLLabsApiWrapper.SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4");
 
-// Or if you use the SSLWrapper namespace this can be shorten to
-var ssllService = new SSLLService("https://api.dev.ssllabs.com/api/fa78d5a4");
+// Or if you use the SSLLabsApiWrapper namespace this can be shorten to
+var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4");
 ```
 #### Methods
 
-Below are the method signatures of the SSLLWrapper Service.
+Below are the method signatures of the SSL Labs api wrapper service.
 
 ##### Info()
 
-The Info method is used to determine if the API is online and returns an [Info response object](https://github.com/AshleyPoole/SSLLWrapper/blob/master/README.md#info-1). No input parameters are taken.
+The Info method is used to determine if the API is online and returns an [Info response object](https://github.com/AshleyPoole/sslLabs-api-wrapper/blob/master/README.md#info-1). No input parameters are taken.
 
 ```C#
 public Info Info()
@@ -45,6 +45,20 @@ public Analyze Analyze(string host, Publish publish, ClearCache clearCache, From
 The wrapper also contains an overloaded Analyze method which only requires the host parameter. Internal is uses the following parameter options - Publish.Off, ClearCache.On, FromCache.Ignore, All.On.
 ```C#
 public Analyze Analyze(string host)
+```
+
+##### AutomaticAnalyze()
+
+The Analyze method is used to initiate and wait for an assessment to complete before retrieving results. Compared to the normal Analyze() method this method keeps checking the Api and only when a scan has finished does it return. This saves the comsumer from having to write their own logic for handling an assessment in progress.
+Another call to GetEndpointDetails() may be needed to view the whole result set for a given endpoint.
+
+```C#
+public Analyze AutomaticAnalyze(string host, Publish publish, ClearCache clearCache, FromCache fromCache, All all)
+```
+
+The wrapper also contains an overloaded AutomaticAnalyze method which only requires the host parameter. Internal is uses the following parameter options - Publish.Off, ClearCache.On, FromCache.Ignore, All.On.
+```C#
+public Analyze AutomaticAnalyze(string host)
 ```
 
 ##### GetEndpointData()
@@ -98,7 +112,8 @@ public class Error
 public string engineVersion { get; set; }
 public string criteriaVersion { get; set; }
 public int clientMaxAssessments { get; set; }
-public string notice { get; set; }
+public int currentAssessments { get; set; }
+public List<string> messages { get; set; }
 public bool Online { get; set; }
 ```
 
@@ -170,8 +185,8 @@ public enum All
 ### Author
 Ashley Poole - www.ashleypoole.co.uk.
 
-[SSLWrapper project's home page](http://www.ashleypoole.co.uk/ssllwrapper?utm_source=github&utm_medium=githubproject&utm_campaign=ssllwrapper)
+[Project's home page](http://www.ashleypoole.co.uk/ssllabs-api-wrapper?utm_source=github&utm_medium=githubproject&utm_campaign=ssllwrapper)
 
-Please contact me if you have any questions, issues or recommendations either via [my website](http://www.ashleypoole.co.uk), [Twitter](http://twitter.com/geekypants92) or [by email](mailto:git@ashleypoole.co.uk).
+Please contact me if you have any questions, issues or recommendations either via [my website](http://www.ashleypoole.co.uk), [Twitter](http://twitter.com/AshleyPooleUK) or [by email](mailto:git@ashleypoole.co.uk).
 
 
