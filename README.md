@@ -6,7 +6,6 @@ This is the first publicly available .NET wrapper developed for the [SSL Labs' A
 This wrapper easies the communication to the API's for .NET developers which allows you as the developer to focus on your project rather than managing the plumbing and overhead required to consume the API's.
 
 **Notes**
-- SSL Labs' Assessment API's are currently still in development and are subject to change. This therefore may impact the wrapper though updates will be provided.
 - The wrapper does **NOT** use web scrapping like other wrappers which don't use the assessment API's.
 
 ### NuGet Package
