@@ -93,6 +93,7 @@ A property may be NULL or 0 if the field was NULL or not listed in the API's res
 public Header Header { get; set; }
 public bool HasErrorOccurred { get; set; }
 public List<Error> Errors { get; set; }
+public Wrapper Wrapper { get; set; }
 
 public class Header
 {
@@ -104,6 +105,13 @@ public class Error
 {
 	public string field { get; set; }
 	public string message { get; set; }
+}
+
+public class Wrapper
+{
+	public int ApiPassCount { get; set; }
+	public string ApiCommandUrl { get; set; }
+	public string ApiRawResponse { get; set; }
 }
 ```
 
