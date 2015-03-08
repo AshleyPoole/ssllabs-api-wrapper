@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using Newtonsoft.Json;
 using SSLLabsApiWrapper.Models;
 using SSLLabsApiWrapper.Models.Response;
@@ -23,7 +22,7 @@ namespace SSLLabsApiWrapper.Domain
 
 			infoModel = JsonConvert.DeserializeObject<Info>(webResponse.Payloay, JsonSerializerSettings);
 			infoModel.Header = PopulateHeader(infoModel.Header, webResponse);
-			infoModel.Wrapper.ApiCommandUrl = webResponse.Url;
+			infoModel.Wrapper = PopulateWrapper(infoModel.Wrapper, webResponse);
 
 			return infoModel;
 		}
@@ -32,7 +31,7 @@ namespace SSLLabsApiWrapper.Domain
 		{
 			analyzeModel = JsonConvert.DeserializeObject<Analyze>(webResponse.Payloay, JsonSerializerSettings);
 			analyzeModel.Header = PopulateHeader(analyzeModel.Header, webResponse);
-			analyzeModel.Wrapper.ApiCommandUrl = webResponse.Url;
+			analyzeModel.Wrapper = PopulateWrapper(analyzeModel.Wrapper, webResponse);
 
 			if (analyzeModel.status == "ERROR") { analyzeModel.Errors.Add(new Error() { message = analyzeModel.statusMessage }); }
 
@@ -43,7 +42,7 @@ namespace SSLLabsApiWrapper.Domain
 		{
 			endpointModel = JsonConvert.DeserializeObject<Endpoint>(webResponse.Payloay, JsonSerializerSettings);
 			endpointModel.Header = PopulateHeader(endpointModel.Header, webResponse);
-			endpointModel.Wrapper.ApiCommandUrl = webResponse.Url;
+			endpointModel.Wrapper = PopulateWrapper(endpointModel.Wrapper, webResponse);
 
 			return endpointModel;
 		}
@@ -52,7 +51,7 @@ namespace SSLLabsApiWrapper.Domain
 		{
 			statusCodes = JsonConvert.DeserializeObject<StatusCodes>(webResponse.Payloay, JsonSerializerSettings);
 			statusCodes.Header = PopulateHeader(statusCodes.Header, webResponse);
-			statusCodes.Wrapper.ApiCommandUrl = webResponse.Url;
+			statusCodes.Wrapper = PopulateWrapper(statusCodes.Wrapper, webResponse);
 
 			return statusCodes;
 		}
@@ -63,6 +62,14 @@ namespace SSLLabsApiWrapper.Domain
 			header.statusDescription = webResponse.StatusDescription;
 
 			return header;
+		}
+
+		public Wrapper PopulateWrapper(Wrapper wrapper, WebResponseModel webResponse)
+		{
+			wrapper.ApiCommandUrl = webResponse.Url;
+			wrapper.ApiRawResponse = webResponse.Payloay;
+
+			return wrapper;
 		}
 	}
 }
