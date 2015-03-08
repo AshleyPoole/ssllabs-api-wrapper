@@ -137,8 +137,9 @@ namespace SSLLabsApiWrapper
 
 		public Analyze AutomaticAnalyze(string host, Publish publish, ClearCache clearCache, FromCache fromCache, All all, int maxWaitInterval, int sleepInterval)
 	    {
-		    var startTime = DateTime.Now;
+			var startTime = DateTime.Now;
 			var sleepIntervalMilliseconds = sleepInterval * 1000;
+			var apiPassCount = 1;
 			var analyzeModel = Analyze(host, publish, clearCache, fromCache, all);
 
 			// Ignoring cache settings after first request to prevent loop
@@ -148,8 +149,11 @@ namespace SSLLabsApiWrapper
 			while (analyzeModel.HasErrorOccurred == false && analyzeModel.status != "READY" && (DateTime.Now - startTime).TotalSeconds < maxWaitInterval)
 			{
 				Thread.Sleep(sleepIntervalMilliseconds);
+				apiPassCount ++;
 				analyzeModel = Analyze(host, publish, clearCache, fromCache, all);
 		    }
+
+			analyzeModel.Wrapper.ApiPassCount = apiPassCount;
 
 			return analyzeModel;
 	    }

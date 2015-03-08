@@ -29,6 +29,7 @@ namespace SSLLabsApiWrapper.External
 			webResponseModel.Payloay = streamReader.ReadToEnd();
 			webResponseModel.StatusCode = (int)response.StatusCode;
 			webResponseModel.StatusDescription = response.StatusDescription;
+			webResponseModel.Url = url;
 
 			return webResponseModel;
 		}
