@@ -98,8 +98,8 @@ namespace given_that_I_make_a_analyze_request
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
 			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
-			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.ClearCache.On,
-				SSLLabsApiService.FromCache.Ignore, SSLLabsApiService.All.Done);
+			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.startNew.On,
+				SSLLabsApiService.FromCache.Ignore, null, SSLLabsApiService.All.Done, SSLLabsApiService.ignoreMismatch.Off);
 		}
 
 		[TestMethod]
@@ -130,8 +130,8 @@ namespace given_that_I_make_a_analyze_request
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
 			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
-			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.ClearCache.On,
-				SSLLabsApiService.FromCache.Ignore, SSLLabsApiService.All.Done);
+			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.startNew.On,
+				SSLLabsApiService.FromCache.Ignore, null, SSLLabsApiService.All.Done, SSLLabsApiService.ignoreMismatch.Off);
 		}
 
 		[TestMethod]
@@ -142,7 +142,7 @@ namespace given_that_I_make_a_analyze_request
 	}
 
 	[TestClass]
-	public class when_a_invalid_request_is_made_with_both_clearCache_and_fromCache : NegativeTests
+	public class when_a_invalid_request_is_made_with_both_startNew_and_fromCache : NegativeTests
 	{
 		[ClassInitialize]
 		public static void Setup(TestContext testContext)
@@ -151,17 +151,17 @@ namespace given_that_I_make_a_analyze_request
 			TestHost = "https://www.ashleypoole.co.uk";
 			var webResponseModel = new WebResponseModel()
 			{
-				Payloay = "{\"errors\":[{\"message\":\"Parameters \u0027fromCache\u0027 and \u0027clearCache\u0027 cannot be used at the same time\"}]}",
+				Payloay = "{\"errors\":[{\"message\":\"Parameters \u0027fromCache\u0027 and \u0027startNew\u0027 cannot be used at the same time\"}]}",
 				StatusCode = 400,
 				StatusDescription = "Ok",
-				Url = ("https://api.dev.ssllabs.com/api/fa78d5a4/analyze?host=" + TestHost + "&clearCache=on&fromCache=on&all=done")
+				Url = ("https://api.dev.ssllabs.com/api/fa78d5a4/analyze?host=" + TestHost + "&startNew=on&fromCache=on&all=done")
 			};
 
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
 			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
-			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.ClearCache.On,
-				SSLLabsApiService.FromCache.Ignore, SSLLabsApiService.All.Done);
+			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.startNew.On,
+				SSLLabsApiService.FromCache.Ignore, null, SSLLabsApiService.All.Done, SSLLabsApiService.ignoreMismatch.Off);
 		}
 	}
 

@@ -189,6 +189,12 @@ public enum All
 }
 ```
 
+### Development ToDo List
+- Increase testing around ignoreMismatch parameter on Analyze call
+- Increase testing around maxAge parameter on Analyze call
+- Increase integration tests around positive and negative outcomes
+
+
 ### Author
 Ashley Poole - www.ashleypoole.co.uk.
 
