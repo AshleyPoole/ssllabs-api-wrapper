@@ -98,8 +98,8 @@ namespace given_that_I_make_a_analyze_request
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
 			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
-			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.startNew.On,
-				SSLLabsApiService.FromCache.Ignore, null, SSLLabsApiService.All.Done, SSLLabsApiService.ignoreMismatch.Off);
+			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.StartNew.On,
+				SSLLabsApiService.FromCache.Ignore, null, SSLLabsApiService.All.Done, SSLLabsApiService.IgnoreMismatch.Off);
 		}
 
 		[TestMethod]
@@ -130,8 +130,8 @@ namespace given_that_I_make_a_analyze_request
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
 			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
-			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.startNew.On,
-				SSLLabsApiService.FromCache.Ignore, null, SSLLabsApiService.All.Done, SSLLabsApiService.ignoreMismatch.Off);
+			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.StartNew.On,
+				SSLLabsApiService.FromCache.Ignore, null, SSLLabsApiService.All.Done, SSLLabsApiService.IgnoreMismatch.Off);
 		}
 
 		[TestMethod]
@@ -160,8 +160,8 @@ namespace given_that_I_make_a_analyze_request
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
 			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
-			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.startNew.On,
-				SSLLabsApiService.FromCache.Ignore, null, SSLLabsApiService.All.Done, SSLLabsApiService.ignoreMismatch.Off);
+			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.StartNew.On,
+				SSLLabsApiService.FromCache.Ignore, null, SSLLabsApiService.All.Done, SSLLabsApiService.IgnoreMismatch.Off);
 		}
 	}
 
