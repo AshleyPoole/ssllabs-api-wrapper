@@ -120,12 +120,12 @@ namespace given_that_I_make_a_get_endpoint_details_request
 				          ",\"heartbleed\":false,\"heartbeat\":false,\"openSslCcs\":1,\"poodleTls\":1}}",
 				StatusCode = 200,
 				StatusDescription = "Ok",
-				Url = ("https://api.dev.ssllabs.com/api/fa78d5a4/getEndpoint?host=" + TestHost + "%s=" + TestIP)
+				Url = ("https://api.ssllabs.com/api/v2/getEndpoint?host=" + TestHost + "%s=" + TestIP)
 			};
 
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
-			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
+			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
 			Response = ssllService.GetEndpointData(TestHost, TestIP);
 		}
 
@@ -174,12 +174,12 @@ namespace given_that_I_make_a_get_endpoint_details_request
 				Payloay = "{\"errors\":[{\"message\":\"Endpoint not found\"}]}",
 				StatusCode = 400,
 				StatusDescription = "Bad Request",
-				Url = ("https://api.dev.ssllabs.com/api/fa78d5a4/getEndpointData?host=" + TestHost + "s=" + TestIP)
+				Url = ("https://api.ssllabs.com/api/v2/getEndpointData?host=" + TestHost + "s=" + TestIP)
 			};
 
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
-			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
+			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
 			Response = ssllService.GetEndpointData(TestHost, TestIP);
 		}
 
@@ -197,7 +197,7 @@ namespace given_that_I_make_a_get_endpoint_details_request
 		public static void Setup(TestContext testContext)
 		{
 			var mockedApiProvider = new Mock<IApiProvider>();
-			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
+			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
 
 			TestHost = "www.ashleypoole.somereallybadurl";
 			TestIP = "111.111.111.111";

@@ -21,12 +21,12 @@ namespace given_that_I_make_a_info_request
 				Payloay = "{\"engineVersion\":\"1.11.4\",\"criteriaVersion\":\"2009i\",\"clientMaxAssessments\":5,\"notice\":\"Some notice goes here\"}",
 				StatusCode = 200,
 				StatusDescription = "Ok",
-				Url = "https://api.dev.ssllabs.com/api/fa78d5a4/info"
+				Url = "https://api.ssllabs.com/api/v2/info"
 			};
 
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
-			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
+			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
 			Response = ssllService.Info();
 		}
 
@@ -61,12 +61,12 @@ namespace given_that_I_make_a_info_request
 				Payloay = null,
 				StatusCode = 0,
 				StatusDescription = null,
-				Url = "https://api.dev.ssllabs.com/api/fa78d5a4/info"
+				Url = "https://api.ssllabs.com/api/v2/info"
 			};
 
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
-			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
+			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
 			Response = ssllService.Info();
 		}
 
