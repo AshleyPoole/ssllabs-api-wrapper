@@ -9,8 +9,8 @@ namespace SSLLabsApiWrapper.Domain
 			return new RequestModel() {ApiBaseUrl = apiBaseUrl, Action = action};
 		}
 
-		public RequestModel NewAnalyzeRequestModel(string apiBaseUrl, string action, string host, string publish, string clearCache,
-			string fromCache, string all)
+		public RequestModel NewAnalyzeRequestModel(string apiBaseUrl, string action, string host, string publish, string startNew,
+			string fromCache, int? maxHours, string all, string ignoreMismatch)
 		{
 			var requestModel = new RequestModel() { ApiBaseUrl = apiBaseUrl, Action = action};
 
@@ -18,8 +18,10 @@ namespace SSLLabsApiWrapper.Domain
 			requestModel.Parameters.Add("publish", publish);
 			requestModel.Parameters.Add("all", all);
 
-			if (clearCache != "ignore") { requestModel.Parameters.Add("clearCache", clearCache); }
+			if (startNew != "ignore") { requestModel.Parameters.Add("startNew", startNew); }
 			if (fromCache != "ignore") { requestModel.Parameters.Add("fromCache", fromCache); }
+			if (maxHours != null) { requestModel.Parameters.Add("maxHours", maxHours.ToString()); }
+			if (ignoreMismatch != "off") { requestModel.Parameters.Add("ignoreMismatch", ignoreMismatch); }
 
 			return requestModel;
 		}

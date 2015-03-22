@@ -41,12 +41,12 @@ namespace given_that_I_make_a_status_codes_request
 				          "Testing Long Handshake (might take a while)\"}}",
 				StatusCode = 200,
 				StatusDescription = "Ok",
-				Url = "https://api.dev.ssllabs.com/api/fa78d5a4/info"
+				Url = "https://api.ssllabs.com/api/v2/info"
 			};
 
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
-			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
+			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
 			Response = ssllService.GetStatusCodes();
 		}
 
@@ -69,12 +69,12 @@ namespace given_that_I_make_a_status_codes_request
 				Payloay = null,
 				StatusCode = 0,
 				StatusDescription = null,
-				Url = "https://api.dev.ssllabs.com/api/fa78d5a4/info"
+				Url = "https://api.ssllabs.com/api/v2/info"
 			};
 
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
-			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
+			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
 			Response = ssllService.GetStatusCodes();
 		}
 

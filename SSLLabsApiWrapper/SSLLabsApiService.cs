@@ -24,10 +24,9 @@ namespace SSLLabsApiWrapper
 		    Off
 	    }
 
-	    public enum ClearCache
+	    public enum startNew
 	    {
 		    On,
-		    Off,
 			Ignore
 	    }
 
@@ -43,6 +42,12 @@ namespace SSLLabsApiWrapper
 		    On,
 		    Done
 	    }
+
+		public enum ignoreMismatch
+		{
+			On,
+			Off
+		}
 
 		public SSLLabsApiService(string apiUrl) : this(apiUrl, new SSLLabsApi())
 	    {
@@ -89,10 +94,10 @@ namespace SSLLabsApiWrapper
 	    public Analyze Analyze(string host)
 	    {
 			// overloaded method to provide a default set of options
-		    return Analyze(host, Publish.Off, ClearCache.On, FromCache.Ignore, All.On);
+		    return Analyze(host, Publish.Off, startNew.On, FromCache.Ignore, null, All.On, ignoreMismatch.Off);
 	    }
 
-		public Analyze Analyze(string host, Publish publish, ClearCache clearCache, FromCache fromCache, All all)
+		public Analyze Analyze(string host, Publish publish, startNew startNew, FromCache fromCache, int? maxHours, All all, ignoreMismatch ignoreMismatch)
 		{
 			var analyzeModel = new Analyze();
 
@@ -105,8 +110,8 @@ namespace SSLLabsApiWrapper
 			}
 
 			// Building request model
-			var requestModel = _requestModelFactory.NewAnalyzeRequestModel(ApiUrl, "analyze", host, publish.ToString().ToLower(), clearCache.ToString().ToLower(), 
-				fromCache.ToString().ToLower(), all.ToString().ToLower());
+			var requestModel = _requestModelFactory.NewAnalyzeRequestModel(ApiUrl, "analyze", host, publish.ToString().ToLower(), startNew.ToString().ToLower(), 
+				fromCache.ToString().ToLower(), maxHours, all.ToString().ToLower(), ignoreMismatch.ToString().ToLower());
 
 			try
 			{
@@ -132,25 +137,26 @@ namespace SSLLabsApiWrapper
 
 	    public Analyze AutomaticAnalyze(string host, int maxWaitInterval, int sleepInterval)
 	    {
-			return AutomaticAnalyze(host, Publish.Off, ClearCache.On, FromCache.Ignore, All.On, maxWaitInterval, sleepInterval);
+			return AutomaticAnalyze(host, Publish.Off, startNew.On, FromCache.Ignore, null, All.On, ignoreMismatch.Off, maxWaitInterval, sleepInterval);
 	    }
 
-		public Analyze AutomaticAnalyze(string host, Publish publish, ClearCache clearCache, FromCache fromCache, All all, int maxWaitInterval, int sleepInterval)
+		public Analyze AutomaticAnalyze(string host, Publish publish, startNew startNew, FromCache fromCache, int? maxHours, All all, ignoreMismatch ignoreMismatch,
+			int maxWaitInterval, int sleepInterval)
 	    {
 			var startTime = DateTime.Now;
 			var sleepIntervalMilliseconds = sleepInterval * 1000;
 			var apiPassCount = 1;
-			var analyzeModel = Analyze(host, publish, clearCache, fromCache, all);
+			var analyzeModel = Analyze(host, publish, startNew, fromCache, maxHours, all, ignoreMismatch);
 
 			// Ignoring cache settings after first request to prevent loop
-			clearCache = ClearCache.Ignore;
+			startNew = startNew.Ignore;
 
 			// Shouldn't have to check status header as HasErrorOccurred should be enough
 			while (analyzeModel.HasErrorOccurred == false && analyzeModel.status != "READY" && (DateTime.Now - startTime).TotalSeconds < maxWaitInterval)
 			{
 				Thread.Sleep(sleepIntervalMilliseconds);
 				apiPassCount ++;
-				analyzeModel = Analyze(host, publish, clearCache, fromCache, all);
+				analyzeModel = Analyze(host, publish, startNew, fromCache, null, all, ignoreMismatch);
 		    }
 
 			analyzeModel.Wrapper.ApiPassCount = apiPassCount;

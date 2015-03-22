@@ -28,12 +28,12 @@ namespace given_that_I_make_a_analyze_request
 				          ":61046,\"eta\":2393,\"delegation\":3}]}",
 				StatusCode = 200,
 				StatusDescription = "Ok",
-				Url = ("https://api.dev.ssllabs.com/api/fa78d5a4/analyze?host=" + TestHost)
+				Url = ("https://api.ssllabs.com/api/v2/analyze?host=" + TestHost)
 			};
 
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
-			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
+			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
 			Response = ssllService.Analyze(TestHost);
 		}
 
@@ -59,12 +59,12 @@ namespace given_that_I_make_a_analyze_request
 				          "\"criteriaVersion\":\"2009i\"}",
 				StatusCode = 200,
 				StatusDescription = "Ok",
-				Url = ("https://api.dev.ssllabs.com/api/fa78d5a4/analyze?host=" + TestHost)
+				Url = ("https://api.ssllabs.com/api/v2/analyze?host=" + TestHost)
 			};
 
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
-			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
+			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
 			Response = ssllService.Analyze(TestHost);
 		}
 
@@ -92,14 +92,14 @@ namespace given_that_I_make_a_analyze_request
 				          "{\"ipAddress\":\"104.28.7.2\",\"statusMessage\":\"Pending\",\"progress\":-1,\"eta\":-1,\"delegation\":3}]}",
 				StatusCode = 200,
 				StatusDescription = "Ok",
-				Url = ("https://api.dev.ssllabs.com/api/fa78d5a4/analyze?host=" + TestHost + "&publish=on&all=done")
+				Url = ("https://api.ssllabs.com/api/v2/analyze?host=" + TestHost + "&publish=on&all=done")
 			};
 
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
-			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
-			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.ClearCache.On,
-				SSLLabsApiService.FromCache.Ignore, SSLLabsApiService.All.Done);
+			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
+			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.startNew.On,
+				SSLLabsApiService.FromCache.Ignore, null, SSLLabsApiService.All.Done, SSLLabsApiService.ignoreMismatch.Off);
 		}
 
 		[TestMethod]
@@ -124,25 +124,25 @@ namespace given_that_I_make_a_analyze_request
 				          "\"engineVersion\":\"1.12.8\",\"criteriaVersion\":\"2009i\",\"cacheExpiryTime\":1422478858017}",
 				StatusCode = 200,
 				StatusDescription = "Ok",
-				Url = ("https://api.dev.ssllabs.com/api/fa78d5a4/analyze?host=" + TestHost)
+				Url = ("https://api.ssllabs.com/api/v2/analyze?host=" + TestHost)
 			};
 
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
-			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
-			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.ClearCache.On,
-				SSLLabsApiService.FromCache.Ignore, SSLLabsApiService.All.Done);
+			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
+			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.startNew.On,
+				SSLLabsApiService.FromCache.Ignore, null, SSLLabsApiService.All.Done, SSLLabsApiService.ignoreMismatch.Off);
 		}
 
 		[TestMethod]
-		public void then_the_status_code_should_be_valid_for_response()
+		public new void then_the_status_code_should_be_valid_for_response()
 		{
 			Response.Header.statusCode.Should().Be(200);
 		}
 	}
 
 	[TestClass]
-	public class when_a_invalid_request_is_made_with_both_clearCache_and_fromCache : NegativeTests
+	public class when_a_invalid_request_is_made_with_both_startNew_and_fromCache : NegativeTests
 	{
 		[ClassInitialize]
 		public static void Setup(TestContext testContext)
@@ -151,17 +151,17 @@ namespace given_that_I_make_a_analyze_request
 			TestHost = "https://www.ashleypoole.co.uk";
 			var webResponseModel = new WebResponseModel()
 			{
-				Payloay = "{\"errors\":[{\"message\":\"Parameters \u0027fromCache\u0027 and \u0027clearCache\u0027 cannot be used at the same time\"}]}",
+				Payloay = "{\"errors\":[{\"message\":\"Parameters \u0027fromCache\u0027 and \u0027startNew\u0027 cannot be used at the same time\"}]}",
 				StatusCode = 400,
 				StatusDescription = "Ok",
-				Url = ("https://api.dev.ssllabs.com/api/fa78d5a4/analyze?host=" + TestHost + "&clearCache=on&fromCache=on&all=done")
+				Url = ("https://api.ssllabs.com/api/v2/analyze?host=" + TestHost + "&startNew=on&fromCache=on&all=done")
 			};
 
 			mockedApiProvider.Setup(x => x.MakeGetRequest(It.IsAny<RequestModel>())).Returns(webResponseModel);
 
-			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
-			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.ClearCache.On,
-				SSLLabsApiService.FromCache.Ignore, SSLLabsApiService.All.Done);
+			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
+			Response = ssllService.Analyze(TestHost, SSLLabsApiService.Publish.On, SSLLabsApiService.startNew.On,
+				SSLLabsApiService.FromCache.Ignore, null, SSLLabsApiService.All.Done, SSLLabsApiService.ignoreMismatch.Off);
 		}
 	}
 
@@ -174,7 +174,7 @@ namespace given_that_I_make_a_analyze_request
 			var mockedApiProvider = new Mock<IApiProvider>();
 			TestHost = "www.ashleypoole.somereallybadurl";
 
-			var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4/", mockedApiProvider.Object);
+			var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2/", mockedApiProvider.Object);
 			Response = ssllService.Analyze(TestHost);
 		}
 
