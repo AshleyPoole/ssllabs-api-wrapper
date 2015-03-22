@@ -24,7 +24,7 @@ namespace SSLLabsApiWrapper
 		    Off
 	    }
 
-	    public enum startNew
+	    public enum StartNew
 	    {
 		    On,
 			Ignore
@@ -43,7 +43,7 @@ namespace SSLLabsApiWrapper
 		    Done
 	    }
 
-		public enum ignoreMismatch
+		public enum IgnoreMismatch
 		{
 			On,
 			Off
@@ -94,10 +94,10 @@ namespace SSLLabsApiWrapper
 	    public Analyze Analyze(string host)
 	    {
 			// overloaded method to provide a default set of options
-		    return Analyze(host, Publish.Off, startNew.On, FromCache.Ignore, null, All.On, ignoreMismatch.Off);
+		    return Analyze(host, Publish.Off, StartNew.On, FromCache.Ignore, null, All.On, IgnoreMismatch.Off);
 	    }
 
-		public Analyze Analyze(string host, Publish publish, startNew startNew, FromCache fromCache, int? maxHours, All all, ignoreMismatch ignoreMismatch)
+		public Analyze Analyze(string host, Publish publish, StartNew startNew, FromCache fromCache, int? maxHours, All all, IgnoreMismatch ignoreMismatch)
 		{
 			var analyzeModel = new Analyze();
 
@@ -137,10 +137,10 @@ namespace SSLLabsApiWrapper
 
 	    public Analyze AutomaticAnalyze(string host, int maxWaitInterval, int sleepInterval)
 	    {
-			return AutomaticAnalyze(host, Publish.Off, startNew.On, FromCache.Ignore, null, All.On, ignoreMismatch.Off, maxWaitInterval, sleepInterval);
+			return AutomaticAnalyze(host, Publish.Off, StartNew.On, FromCache.Ignore, null, All.On, IgnoreMismatch.Off, maxWaitInterval, sleepInterval);
 	    }
 
-		public Analyze AutomaticAnalyze(string host, Publish publish, startNew startNew, FromCache fromCache, int? maxHours, All all, ignoreMismatch ignoreMismatch,
+		public Analyze AutomaticAnalyze(string host, Publish publish, StartNew startNew, FromCache fromCache, int? maxHours, All all, IgnoreMismatch ignoreMismatch,
 			int maxWaitInterval, int sleepInterval)
 	    {
 			var startTime = DateTime.Now;
@@ -149,7 +149,7 @@ namespace SSLLabsApiWrapper
 			var analyzeModel = Analyze(host, publish, startNew, fromCache, maxHours, all, ignoreMismatch);
 
 			// Ignoring cache settings after first request to prevent loop
-			startNew = startNew.Ignore;
+			startNew = StartNew.Ignore;
 
 			// Shouldn't have to check status header as HasErrorOccurred should be enough
 			while (analyzeModel.HasErrorOccurred == false && analyzeModel.status != "READY" && (DateTime.Now - startTime).TotalSeconds < maxWaitInterval)
