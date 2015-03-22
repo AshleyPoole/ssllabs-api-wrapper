@@ -16,10 +16,10 @@ The wrapper can easily be imported into your project using the [NuGet package](h
 ### Wrapper Usage
 When creating a new instance of SSL Labs api wrapper service you must supply the API url during the initialization. For example in C# this would be expressed as the following: 
 ```C#
-var ssllService = new SSLLabsApiWrapper.SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4");
+var ssllService = new SSLLabsApiWrapper.SSLLabsApiService("https://api.ssllabs.com/api/v2");
 
 // Or if you use the SSLLabsApiWrapper namespace this can be shorten to
-var ssllService = new SSLLabsApiService("https://api.dev.ssllabs.com/api/fa78d5a4");
+var ssllService = new SSLLabsApiService("https://api.ssllabs.com/api/v2");
 ```
 #### Methods
 
@@ -38,7 +38,7 @@ public Info Info()
 The Analyze method is used to initiate an assessment or retrieve results. The results may only be partial so see SSL Labs documentation for more information as as GetEndpointDetails call may be needed to view the whole result set.
 
 ```C#
-public Analyze Analyze(string host, Publish publish, ClearCache clearCache, FromCache fromCache, All all)
+public Analyze Analyze(string host, Publish publish, StartNew startNew, FromCache fromCache, ?int maxHours, IgnoreMismatch ignoreMismatch, All all)
 ```
 
 The wrapper also contains an overloaded Analyze method which only requires the host parameter. Internal is uses the following parameter options - Publish.Off, ClearCache.On, FromCache.Ignore, All.On.
@@ -52,10 +52,10 @@ The Analyze method is used to initiate and wait for an assessment to complete be
 Another call to GetEndpointDetails() may be needed to view the whole result set for a given endpoint.
 
 ```C#
-public Analyze AutomaticAnalyze(string host, Publish publish, ClearCache clearCache, FromCache fromCache, All all)
+public Analyze AutomaticAnalyze(string host, Publish publish, StartNew startNew, FromCache fromCache, ?int maxHours, IgnoreMismatch ignoreMismatch, All all)
 ```
 
-The wrapper also contains an overloaded AutomaticAnalyze method which only requires the host parameter. Internal is uses the following parameter options - Publish.Off, ClearCache.On, FromCache.Ignore, All.On.
+The wrapper also contains an overloaded AutomaticAnalyze method which only requires the host parameter. Internal it uses the following parameter options - Publish.Off, StartNew.On, FromCache.Ignore, All.On.
 ```C#
 public Analyze AutomaticAnalyze(string host)
 ```
@@ -168,10 +168,9 @@ public enum Publish
     Off
 }
 
-public enum ClearCache
+public enum StartNew
 {
     On,
-    Off,
 	Ignore
 }
 
@@ -187,6 +186,14 @@ public enum All
     On,
     Done
 }
+
+public enum IgnoreMismatch
+{
+    On,
+    Off
+}
+
+
 ```
 
 ### Development ToDo List
@@ -198,7 +205,7 @@ public enum All
 ### Author
 Ashley Poole - www.ashleypoole.co.uk.
 
-[Project's home page](http://www.ashleypoole.co.uk/ssllabs-api-wrapper?utm_source=github&utm_medium=githubproject&utm_campaign=ssllwrapper)
+[Project's home page](http://www.ashleypoole.co.uk/ssllabs-api-wrapper?utm_source=github&utm_medium=ssllabsapiwrapperrepo&utm_campaign=ssllwrapper)
 
 Please contact me if you have any questions, issues or recommendations either via [my website](http://www.ashleypoole.co.uk), [Twitter](http://twitter.com/AshleyPooleUK) or [by email](mailto:git@ashleypoole.co.uk).
 
