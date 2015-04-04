@@ -143,7 +143,7 @@ namespace SSLLabsApiWrapper
 		public Analyze AutomaticAnalyze(string host, Publish publish, StartNew startNew, FromCache fromCache, int? maxHours, All all, IgnoreMismatch ignoreMismatch,
 			int maxWaitInterval, int sleepInterval)
 	    {
-			var startTime = DateTime.Now;
+			var startTime = DateTime.UtcNow;
 			var sleepIntervalMilliseconds = sleepInterval * 1000;
 			var apiPassCount = 1;
 			var analyzeModel = Analyze(host, publish, startNew, fromCache, maxHours, all, ignoreMismatch);
@@ -152,7 +152,7 @@ namespace SSLLabsApiWrapper
 			startNew = StartNew.Ignore;
 
 			// Shouldn't have to check status header as HasErrorOccurred should be enough
-			while (analyzeModel.HasErrorOccurred == false && analyzeModel.status != "READY" && (DateTime.Now - startTime).TotalSeconds < maxWaitInterval)
+			while (analyzeModel.HasErrorOccurred == false && analyzeModel.status != "READY" && (DateTime.UtcNow - startTime).TotalSeconds < maxWaitInterval)
 			{
 				Thread.Sleep(sleepIntervalMilliseconds);
 				apiPassCount ++;
