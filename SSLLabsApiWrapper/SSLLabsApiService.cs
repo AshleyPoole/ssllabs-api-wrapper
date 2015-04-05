@@ -40,7 +40,8 @@ namespace SSLLabsApiWrapper
 	    public enum All
 	    {
 		    On,
-		    Done
+		    Done,
+			Ignore
 	    }
 
 		public enum IgnoreMismatch

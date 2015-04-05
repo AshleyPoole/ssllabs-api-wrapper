@@ -16,12 +16,12 @@ namespace SSLLabsApiWrapper.Domain
 
 			requestModel.Parameters.Add("host", host);
 			requestModel.Parameters.Add("publish", publish);
-			requestModel.Parameters.Add("all", all);
-
-			if (startNew != "ignore") { requestModel.Parameters.Add("startNew", startNew); }
-			if (fromCache != "ignore") { requestModel.Parameters.Add("fromCache", fromCache); }
+			
+			if (all.ToLower() != "ignore") { requestModel.Parameters.Add("all", all); }
+			if (startNew.ToLower() != "ignore") { requestModel.Parameters.Add("startNew", startNew); }
+			if (fromCache.ToLower() != "ignore") { requestModel.Parameters.Add("fromCache", fromCache); }
 			if (maxHours != null) { requestModel.Parameters.Add("maxHours", maxHours.ToString()); }
-			if (ignoreMismatch != "off") { requestModel.Parameters.Add("ignoreMismatch", ignoreMismatch); }
+			if (ignoreMismatch.ToLower() != "off") { requestModel.Parameters.Add("ignoreMismatch", ignoreMismatch); }
 
 			return requestModel;
 		}
