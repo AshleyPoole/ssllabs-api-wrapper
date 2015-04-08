@@ -5,6 +5,7 @@ namespace SSLLabsApiWrapper.Models.Response
 	public class Endpoint : BaseModel
 	{
 		public string ipAddress { get; set; }
+		public string serverName { get; set; }
 		public string statusMessage { get; set; }
 		public string statusDetails { get; set; }
 		public string statusDetailsMessage { get; set; }
