@@ -16,6 +16,7 @@ namespace SSLLabsApiWrapper.Models.Response
 		// Two groups of poperities can be returned. Just seperating them out for my own reference.
 		public int duration { get; set; }
 		public string grade { get; set; }
+		public string gradeTrustIgnored { get; set; }
 		public bool hasWarnings { get; set; }
 		public bool isExceptional { get; set; }
 

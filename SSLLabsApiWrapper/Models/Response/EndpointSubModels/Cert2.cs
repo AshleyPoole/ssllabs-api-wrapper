@@ -9,9 +9,13 @@
 		public string issuerSubject { get; set; }
 		public string issuerLabel { get; set; }
 		public string sigAlg { get; set; }
+		public int issues { get; set; }
 		public string keyAlg { get; set; }
 		public int keySize { get; set; }
 		public int keyStrength { get; set; }
+		public int revocationStatus { get; set; }
+		public int crlRevocationStatus { get; set; }
+		public int ocspRevocationStatus { get; set; }
 		public string raw { get; set; }
 	}
 }

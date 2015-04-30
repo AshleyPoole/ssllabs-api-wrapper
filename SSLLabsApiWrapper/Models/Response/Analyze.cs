@@ -11,6 +11,7 @@ namespace SSLLabsApiWrapper.Models.Response
 		public string status { get; set; }
 		public string statusMessage { get; set; }
 		public long startTime { get; set; }
+		public long testTime { get; set; }
 		public string engineVersion { get; set; }
 		public string criteriaVersion { get; set; }
 		public List<Endpoint> endpoints { get; set; }

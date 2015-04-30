@@ -16,8 +16,11 @@ namespace SSLLabsApiWrapper.Models.Response.EndpointSubModels
 		public List<string> crlURIs { get; set; }
 		public List<string> ocspURIs { get; set; }
 		public int revocationStatus { get; set; }
+		public int crlRevocationStatus { get; set; }
+		public int ocspRevocationStatus { get; set; }
 		public int sgc { get; set; }
 		public string validationType { get; set; }
 		public int issues { get; set; }
+		public bool sct { get; set; }
 	}
 }

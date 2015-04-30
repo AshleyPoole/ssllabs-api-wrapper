@@ -21,6 +21,8 @@ namespace SSLLabsApiWrapper.Models.Response.EndpointSubModels
 		public string npnProtocols { get; set; }
 		public int sessionTickets { get; set; }
 		public bool ocspStapling { get; set; }
+		public int staplingRevocationStatus { get; set; }
+		public string staplingRevocationErrorMessage { get; set; } // Added as per 1.16.x API docs but not in API
 		public bool sniRequired { get; set; }
 		public int httpStatusCode { get; set; }
 		public bool supportsRc4 { get; set; }
@@ -30,8 +32,12 @@ namespace SSLLabsApiWrapper.Models.Response.EndpointSubModels
 		public bool heartbleed { get; set; }
 		public bool heartbeat { get; set; }
 		public int openSslCcs { get; set; }
+		public bool poodle { get; set; }
 		public int poodleTls { get; set; }
 		public bool fallbackScsv { get; set; }
+		public bool freak { get; set; }
+		public int hasSct { get; set; }
+		public string httpForwarding { get; set; }
 
 		public Details()
 		{
