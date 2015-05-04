@@ -3,7 +3,7 @@ What Is this wrapper?
 
 This is the first publicly available .NET wrapper developed for the [SSL Labs' Assessment API's](https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs.md) that allow the consumer to test SSL servers on the public internet.
 
-This wrapper easies the communication to the API's for .NET developers which allows you as the developer to focus on your project rather than managing the plumbing and overhead required to consume the API's.
+This wrapper eases the communication to the API's for .NET developers which allows you as the developer to focus on your project rather than managing the plumbing and overhead required to consume the API's.
 
 **Notes**
 - The wrapper does **NOT** use web scrapping like other wrappers which don't use the assessment API's.
