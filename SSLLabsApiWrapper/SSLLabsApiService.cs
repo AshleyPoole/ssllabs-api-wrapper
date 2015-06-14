@@ -8,41 +8,41 @@ using SSLLabsApiWrapper.Models.Response.BaseSubModels;
 
 namespace SSLLabsApiWrapper
 {
-    public class SSLLabsApiService
-    {
-	    #region construction
+	public class SSLLabsApiService
+	{
+		#region construction
 
-	    private readonly IApiProvider _apiProvider;
-	    private readonly RequestModelFactory _requestModelFactory;
-	    private readonly ResponsePopulation _responsePopulation;
+		private readonly IApiProvider _apiProvider;
+		private readonly RequestModelFactory _requestModelFactory;
+		private readonly ResponsePopulation _responsePopulation;
 		private readonly UrlValidation _urlValidation;
-	    private string ApiUrl { get; set; }
+		private string ApiUrl { get; set; }
 
-	    public enum Publish
-	    {
-		    On,
-		    Off
-	    }
+		public enum Publish
+		{
+			On,
+			Off
+		}
 
-	    public enum StartNew
-	    {
-		    On,
+		public enum StartNew
+		{
+			On,
 			Ignore
-	    }
+		}
 
-	    public enum FromCache
-	    {
-		    On,
-		    Off,
+		public enum FromCache
+		{
+			On,
+			Off,
 			Ignore
-	    }
+		}
 
-	    public enum All
-	    {
-		    On,
-		    Done,
+		public enum All
+		{
+			On,
+			Done,
 			Ignore
-	    }
+		}
 
 		public enum IgnoreMismatch
 		{
@@ -50,25 +50,26 @@ namespace SSLLabsApiWrapper
 			Off
 		}
 
-		public SSLLabsApiService(string apiUrl) : this(apiUrl, new SSLLabsApi())
-	    {
-	    }
+		public SSLLabsApiService(string apiUrl)
+			: this(apiUrl, new SSLLabsApi())
+		{
+		}
 
 		internal SSLLabsApiService(string apiUrl, IApiProvider apiProvider)
-	    {
+		{
 			_apiProvider = apiProvider;
 			_requestModelFactory = new RequestModelFactory();
-		    _urlValidation = new UrlValidation();
+			_urlValidation = new UrlValidation();
 			_responsePopulation = new ResponsePopulation();
 			ApiUrl = _urlValidation.Format(apiUrl);
-	    }
+		}
 
 		#endregion
 
 		public Info Info()
 		{
-			var infoModel = new Info() {};
-		    var requestModel = _requestModelFactory.NewInfoRequestModel(ApiUrl, "info");
+			var infoModel = new Info() { };
+			var requestModel = _requestModelFactory.NewInfoRequestModel(ApiUrl, "info");
 
 			try
 			{
@@ -87,16 +88,16 @@ namespace SSLLabsApiWrapper
 				infoModel.Errors.Add(new Error { message = ex.ToString() });
 			}
 
-			if (infoModel.Errors.Count != 0 && !infoModel.HasErrorOccurred) { infoModel.HasErrorOccurred = true;}
+			if (infoModel.Errors.Count != 0 && !infoModel.HasErrorOccurred) { infoModel.HasErrorOccurred = true; }
 
 			return infoModel;
 		}
 
-	    public Analyze Analyze(string host)
-	    {
+		public Analyze Analyze(string host)
+		{
 			// overloaded method to provide a default set of options
-		    return Analyze(host, Publish.Off, StartNew.On, FromCache.Ignore, null, All.On, IgnoreMismatch.Off);
-	    }
+			return Analyze(host, Publish.Off, StartNew.On, FromCache.Ignore, null, All.On, IgnoreMismatch.Off);
+		}
 
 		public Analyze Analyze(string host, Publish publish, StartNew startNew, FromCache fromCache, int? maxHours, All all, IgnoreMismatch ignoreMismatch)
 		{
@@ -106,12 +107,12 @@ namespace SSLLabsApiWrapper
 			if (!_urlValidation.IsValid(host))
 			{
 				analyzeModel.HasErrorOccurred = true;
-				analyzeModel.Errors.Add(new Error {message = "Host does not pass preflight validation. No Api call has been made."});
+				analyzeModel.Errors.Add(new Error { message = "Host does not pass preflight validation. No Api call has been made." });
 				return analyzeModel;
 			}
 
 			// Building request model
-			var requestModel = _requestModelFactory.NewAnalyzeRequestModel(ApiUrl, "analyze", host, publish.ToString().ToLower(), startNew.ToString().ToLower(), 
+			var requestModel = _requestModelFactory.NewAnalyzeRequestModel(ApiUrl, "analyze", host, publish.ToString().ToLower(), startNew.ToString().ToLower(),
 				fromCache.ToString().ToLower(), maxHours, all.ToString().ToLower(), ignoreMismatch.ToString().ToLower());
 
 			try
@@ -122,7 +123,7 @@ namespace SSLLabsApiWrapper
 			catch (Exception ex)
 			{
 				analyzeModel.HasErrorOccurred = true;
-				analyzeModel.Errors.Add(new Error {message = ex.ToString()});
+				analyzeModel.Errors.Add(new Error { message = ex.ToString() });
 			}
 
 			// Checking if errors have occoured either from ethier api or wrapper
@@ -131,19 +132,19 @@ namespace SSLLabsApiWrapper
 			return analyzeModel;
 		}
 
-	    public Analyze AutomaticAnalyze(string host)
-	    {
+		public Analyze AutomaticAnalyze(string host)
+		{
 			return AutomaticAnalyze(host, 300, 15);
-	    }
+		}
 
-	    public Analyze AutomaticAnalyze(string host, int maxWaitInterval, int sleepInterval)
-	    {
+		public Analyze AutomaticAnalyze(string host, int maxWaitInterval, int sleepInterval)
+		{
 			return AutomaticAnalyze(host, Publish.Off, StartNew.On, FromCache.Ignore, null, All.On, IgnoreMismatch.Off, maxWaitInterval, sleepInterval);
-	    }
+		}
 
 		public Analyze AutomaticAnalyze(string host, Publish publish, StartNew startNew, FromCache fromCache, int? maxHours, All all, IgnoreMismatch ignoreMismatch,
 			int maxWaitInterval, int sleepInterval)
-	    {
+		{
 			var startTime = DateTime.UtcNow;
 			var sleepIntervalMilliseconds = sleepInterval * 1000;
 			var apiPassCount = 1;
@@ -156,14 +157,14 @@ namespace SSLLabsApiWrapper
 			while (analyzeModel.HasErrorOccurred == false && analyzeModel.status != "READY" && (DateTime.UtcNow - startTime).TotalSeconds < maxWaitInterval)
 			{
 				Thread.Sleep(sleepIntervalMilliseconds);
-				apiPassCount ++;
+				apiPassCount++;
 				analyzeModel = Analyze(host, publish, startNew, fromCache, null, all, ignoreMismatch);
-		    }
+			}
 
 			analyzeModel.Wrapper.ApiPassCount = apiPassCount;
 
 			return analyzeModel;
-	    }
+		}
 
 		public Endpoint GetEndpointData(string host, string s)
 		{
@@ -171,8 +172,8 @@ namespace SSLLabsApiWrapper
 		}
 
 		public Endpoint GetEndpointData(string host, string s, FromCache fromCache)
-	    {
-		    var endpointModel = new Endpoint();
+		{
+			var endpointModel = new Endpoint();
 
 			// Checking host is valid before continuing
 			if (!_urlValidation.IsValid(host))
@@ -200,26 +201,26 @@ namespace SSLLabsApiWrapper
 			// Checking if errors have occoured either from ethier api or wrapper
 			if (endpointModel.Errors.Count != 0 && !endpointModel.HasErrorOccurred) { endpointModel.HasErrorOccurred = true; }
 
-		    return endpointModel;
-	    }
+			return endpointModel;
+		}
 
-	    public StatusCodes GetStatusCodes()
-	    {
+		public StatusCodes GetStatusCodes()
+		{
 			var statusCodesModel = new StatusCodes();
-		    var requestModel = _requestModelFactory.NewStatusCodesRequestModel(ApiUrl, "getStatusCodes");
+			var requestModel = _requestModelFactory.NewStatusCodesRequestModel(ApiUrl, "getStatusCodes");
 
-		    try
-		    {
-			    var webResponse = _apiProvider.MakeGetRequest(requestModel);
-			    statusCodesModel = _responsePopulation.StatusCodesModel(webResponse, statusCodesModel);
-		    }
-		    catch (Exception ex)
-		    {
+			try
+			{
+				var webResponse = _apiProvider.MakeGetRequest(requestModel);
+				statusCodesModel = _responsePopulation.StatusCodesModel(webResponse, statusCodesModel);
+			}
+			catch (Exception ex)
+			{
 				statusCodesModel.HasErrorOccurred = true;
 				statusCodesModel.Errors.Add(new Error { message = ex.ToString() });
-		    }
+			}
 
-		    return statusCodesModel;
-	    }
-    }
+			return statusCodesModel;
+		}
+	}
 }
